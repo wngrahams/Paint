@@ -1,2 +1,2 @@
 # Paint
-Java application allowing users to draw shapes
+Java application for drawing shapes
