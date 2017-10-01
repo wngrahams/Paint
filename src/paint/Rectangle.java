@@ -2,20 +2,22 @@ package paint;
 
 public class Rectangle extends Shape {
 
-	public Rectangle() {
-		// TODO Auto-generated constructor stub
+	private double height;
+	private double width;
+
+	public Rectangle(double h, double w) throws Exception {
+		height = h;
+		width = w;
 	}
 
 	@Override
 	double calculateArea() {
-		// TODO Auto-generated method stub
-		return 0;
+		return height * width;
 	}
 
 	@Override
 	double calculatePerimeter() {
-		// TODO Auto-generated method stub
-		return 0;
+		return (2 * height) + (2 * width);
 	}
 
 	@Override

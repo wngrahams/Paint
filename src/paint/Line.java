@@ -1,20 +1,22 @@
 package paint;
 
 public class Line extends Shape {
+	
+	private double startPt;
+	private double endPt;
 
-	public Line() {
-		// TODO Auto-generated constructor stub
+	public Line(double a, double b) {
+		startPt = a;
+		endPt = b;
 	}
 
 	@Override
 	double calculateArea() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	double calculatePerimeter() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

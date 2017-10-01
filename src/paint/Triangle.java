@@ -2,26 +2,35 @@ package paint;
 
 public class Triangle extends Shape {
 
-	public Triangle() {
-		// TODO Auto-generated constructor stub
+	private double side1;
+	private double side2;
+	private double side3;
+
+	public Triangle(double s1, double s2, double s3) throws Exception {
+		side1 = s1;
+		side2 = s2;
+		side3 = s3;
 	}
 
 	@Override
 	double calculateArea() {
-		// TODO Auto-generated method stub
-		return 0;
+		// Use Heron's formula to calculate area of a Triangle given 3 sides:
+		double halfPerimeter = this.calculatePerimeter() * 0.5;
+		double radicand = halfPerimeter * (halfPerimeter - side1) * (halfPerimeter - side2) * (halfPerimeter - side3);
+		
+		return Math.sqrt(radicand);
 	}
 
 	@Override
 	double calculatePerimeter() {
-		// TODO Auto-generated method stub
-		return 0;
+		return side1 + side2 + side3;
 	}
 
 	@Override
 	void drawShape() {
 		// TODO Auto-generated method stub
-
+		
 	}
+
 
 }
