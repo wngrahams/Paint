@@ -10,10 +10,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 public class Drawer extends JFrame implements ActionListener {
+	
+	private ShapesList shapeList = new ShapesList();
 	
 	private JPanel buttonPanel;
 	private JPanel drawingPanel;
@@ -38,14 +41,35 @@ public class Drawer extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Use an interface for this?
-		if (e.getSource() == colorButton) {
+		if (e.getSource() == areaButton) {
+			String area = "Total Area: " + shapeList.getTotalArea();
+			JOptionPane.showMessageDialog(null, area, "Total Area", JOptionPane.PLAIN_MESSAGE);
+		}
+		else if (e.getSource() == colorButton) {
 			Color oldColor = drawColor;
 			drawColor = JColorChooser.showDialog(this, "Choose a color", drawColor);
 			if (null == drawColor)
 				drawColor = oldColor;
+			
+			// TODO: change button's icon to match
+		}
+		else if (e.getSource() == lineButton) {
+			
+		}
+		else if (e.getSource() == ovalButton) {
+					
+		}
+		else if (e.getSource() == perimeterButton) {
+			String perimeter = "Total perimeter: " + shapeList.getTotalPerimeter();
+			JOptionPane.showMessageDialog(null, perimeter, "Total Perimeter", JOptionPane.PLAIN_MESSAGE);
+		}
+		else if (e.getSource() == rectangleButton) {
+			
+		}
+		else if (e.getSource() == triangleButton) {
+			
 		}
 		
-		System.out.println("current color: " + drawColor);
 	}
 	
 	private void initializeButtons() {
