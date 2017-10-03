@@ -11,11 +11,16 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
-public class DrawPanel extends JPanel implements MouseListener, MouseMotionListener {
+import shapes.Shape;
 
+public class DrawPanel extends JPanel implements DrawListener, MouseListener, MouseMotionListener {
+
+	private Color drawColor;
+	
 	public DrawPanel() {
 		setDoubleBuffered(true);
 		
+		drawColor = Color.BLACK;
 		initializePanel();
 	}
 	
@@ -66,6 +71,17 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void colorChanged(Color newColor) {
+		drawColor = newColor;
+	}
+
+	@Override
+	public void shapeChanged(Shape newShape) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,6 +22,7 @@ import shapes.Shape;
 public class ButtonPanel extends JPanel implements ActionListener {
 	
 	private Color selectedColor;
+	private Shape selectedShape;
 		
 	private JButton areaButton;
 	private JButton colorButton;
@@ -30,9 +32,9 @@ public class ButtonPanel extends JPanel implements ActionListener {
 	private JButton rectangleButton;
 	private JButton triangleButton;
 	
-	private ShapesList shapes;
+	private ArrayList<DrawListener> drawListeners = new ArrayList<DrawListener>(); 
 	
-	private Shape shapeType;
+	private ShapesList shapes;
 
 	public ButtonPanel() {
 		setDoubleBuffered(true);
@@ -53,10 +55,13 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		else if (e.getSource() == colorButton) {
 			Color oldColor = selectedColor;
 			selectedColor = JColorChooser.showDialog(null, "Choose a color", selectedColor);
-			if (null == selectedColor)
+			if (null == selectedColor || oldColor == selectedColor)
 				selectedColor = oldColor;
-			else
+			else {
 				changeColorIcon(selectedColor);
+				for (DrawListener dl : drawListeners)
+					dl.colorChanged(selectedColor);
+			}
 		}
 		else if (e.getSource() == lineButton) {
 			
@@ -75,6 +80,10 @@ public class ButtonPanel extends JPanel implements ActionListener {
 			
 		}
 		
+	}
+	
+	public void addDrawListener(DrawListener dl) {
+		drawListeners.add(dl);
 	}
 	
 	private void changeColorIcon(Color newColor) {
