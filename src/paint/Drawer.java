@@ -2,9 +2,11 @@ package paint;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
+@SuppressWarnings("serial")
 public class Drawer extends JFrame implements ActionListener {
 	
 	private ShapesList shapeList = new ShapesList();
@@ -50,6 +53,8 @@ public class Drawer extends JFrame implements ActionListener {
 			drawColor = JColorChooser.showDialog(this, "Choose a color", drawColor);
 			if (null == drawColor)
 				drawColor = oldColor;
+			else
+				changeColorIcon(drawColor);
 			
 			// TODO: change button's icon to match
 		}
@@ -72,6 +77,17 @@ public class Drawer extends JFrame implements ActionListener {
 		
 	}
 	
+	private void changeColorIcon(Color newColor) {
+		BufferedImage img = new BufferedImage(20, 20, BufferedImage.TYPE_INT_RGB);
+		Graphics2D gr = img.createGraphics();
+		
+		gr.setColor(newColor);
+		gr.fillRect(0, 0, 20, 20);
+		img.flush();
+		
+		colorButton.setIcon(new ImageIcon(img));
+	}
+
 	private void initializeButtons() {
 		areaButton = new JButton("Get Area");
 		perimeterButton = new JButton("Get Perimeter");
@@ -82,6 +98,7 @@ public class Drawer extends JFrame implements ActionListener {
 		triangleButton = new JButton(new ImageIcon("res/triangle.png"));
 		
 		colorButton = new JButton("Choose Color");
+		changeColorIcon(drawColor);
 		
 		areaButton.addActionListener(this);
 		colorButton.addActionListener(this);
