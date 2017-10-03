@@ -14,6 +14,7 @@ import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 @SuppressWarnings("serial")
@@ -99,6 +100,7 @@ public class Drawer extends JFrame implements ActionListener {
 		
 		colorButton = new JButton("Choose Color");
 		changeColorIcon(drawColor);
+		colorButton.setHorizontalTextPosition(SwingConstants.LEFT);
 		
 		areaButton.addActionListener(this);
 		colorButton.addActionListener(this);
