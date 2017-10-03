@@ -1,4 +1,4 @@
-package paint;
+package shapes;
 
 public class Oval extends Shape {
 
@@ -17,12 +17,12 @@ public class Oval extends Shape {
 	}
 
 	@Override
-	double calculateArea() {
+	public double calculateArea() {
 		return majorRadius * minorRadius * Math.PI;
 	}
 
 	@Override
-	double calculatePerimeter() {
+	public double calculatePerimeter() {
 		if (majorRadius == minorRadius)
 			return 2* Math.PI * majorRadius;
 		else {
@@ -36,7 +36,7 @@ public class Oval extends Shape {
 	}
 
 	@Override
-	void drawShape() {
+	public void drawShape() {
 		// TODO Auto-generated method stub
 
 	}

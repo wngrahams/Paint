@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
+import shapes.Shape;
+
 @SuppressWarnings("serial")
 public class ButtonPanel extends JPanel implements ActionListener {
 	
@@ -29,6 +31,8 @@ public class ButtonPanel extends JPanel implements ActionListener {
 	private JButton triangleButton;
 	
 	private ShapesList shapes;
+	
+	private Shape shapeType;
 
 	public ButtonPanel() {
 		setDoubleBuffered(true);

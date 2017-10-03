@@ -1,4 +1,4 @@
-package paint;
+package shapes;
 
 public class Rectangle extends Shape {
 
@@ -11,17 +11,17 @@ public class Rectangle extends Shape {
 	}
 
 	@Override
-	double calculateArea() {
+	public double calculateArea() {
 		return height * width;
 	}
 
 	@Override
-	double calculatePerimeter() {
+	public double calculatePerimeter() {
 		return (2 * height) + (2 * width);
 	}
 
 	@Override
-	void drawShape() {
+	public void drawShape() {
 		// TODO Auto-generated method stub
 
 	}

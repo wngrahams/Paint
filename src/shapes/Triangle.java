@@ -1,4 +1,4 @@
-package paint;
+package shapes;
 
 public class Triangle extends Shape {
 
@@ -13,7 +13,7 @@ public class Triangle extends Shape {
 	}
 
 	@Override
-	double calculateArea() {
+	public double calculateArea() {
 		// Use Heron's formula to calculate area of a Triangle given 3 sides:
 		double halfPerimeter = this.calculatePerimeter() * 0.5;
 		double radicand = halfPerimeter * (halfPerimeter - side1) * (halfPerimeter - side2) * (halfPerimeter - side3);
@@ -22,12 +22,12 @@ public class Triangle extends Shape {
 	}
 
 	@Override
-	double calculatePerimeter() {
+	public double calculatePerimeter() {
 		return side1 + side2 + side3;
 	}
 
 	@Override
-	void drawShape() {
+	public void drawShape() {
 		// TODO Auto-generated method stub
 		
 	}

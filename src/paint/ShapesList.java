@@ -2,6 +2,8 @@ package paint;
 
 import java.util.ArrayList;
 
+import shapes.Shape;
+
 public class ShapesList {
 
 	private ArrayList<Shape> listOfShapes;

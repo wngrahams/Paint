@@ -1,4 +1,4 @@
-package paint;
+package shapes;
 
 public class Line extends Shape {
 	
@@ -11,17 +11,17 @@ public class Line extends Shape {
 	}
 
 	@Override
-	double calculateArea() {
+	public double calculateArea() {
 		return 0;
 	}
 
 	@Override
-	double calculatePerimeter() {
+	public double calculatePerimeter() {
 		return 0;
 	}
 
 	@Override
-	void drawShape() {
+	public void drawShape() {
 		// TODO Auto-generated method stub
 
 	}
