@@ -18,6 +18,11 @@ public class Triangle extends Shape {
 		dimensions = new ArrayList<Double>(3);
 		this.setDim(s1, s2, s3);
 	}
+	
+	public Triangle(List<Double> newDim){
+		dimensions = new ArrayList<Double>(3);
+		this.setDim(newDim);
+	}
 
 	@Override
 	public double calculateArea() {
