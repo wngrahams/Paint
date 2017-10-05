@@ -2,15 +2,11 @@ package paint;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.GridLayout;
-import java.awt.LayoutManager;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
-
 import shapes.Shape;
 
 public class DrawPanel extends JPanel implements DrawListener, MouseListener, MouseMotionListener {
@@ -30,7 +26,7 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 	
 	@Override
 	public void paint(Graphics g){
-		super.paint(g);  // get rid of this, implement your own
+		super.paint(g);  // TODO: get rid of this, implement your own
 	}
 
 	@Override
