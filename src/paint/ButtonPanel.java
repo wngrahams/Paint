@@ -64,7 +64,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
 			}
 		}
 		else if (e.getSource() == lineButton) {
-			
+
 		}
 		else if (e.getSource() == ovalButton) {
 					

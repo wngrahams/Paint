@@ -5,6 +5,11 @@ public class Line extends Shape {
 	private double startPt;
 	private double endPt;
 
+	public Line() {
+		startPt = 0;
+		endPt = 0;
+	}
+	
 	public Line(double a, double b) {
 		startPt = a;
 		endPt = b;

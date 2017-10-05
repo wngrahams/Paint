@@ -5,6 +5,12 @@ public class Triangle extends Shape {
 	private double side1;
 	private double side2;
 	private double side3;
+	
+	public Triangle() {
+		side1 = 0;
+		side2 = 0;
+		side3 = 0;
+	}
 
 	public Triangle(double s1, double s2, double s3) {
 		side1 = s1;

@@ -4,6 +4,11 @@ public class Rectangle extends Shape {
 
 	private double height;
 	private double width;
+	
+	public Rectangle() {
+		height = 0;
+		width = 0;
+	}
 
 	public Rectangle(double h, double w) {
 		height = h;

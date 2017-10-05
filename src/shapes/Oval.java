@@ -5,6 +5,11 @@ public class Oval extends Shape {
 	private double majorRadius;
 	private double minorRadius;
 	
+	public Oval() {
+		minorRadius = 0;
+		majorRadius = 0;
+	}
+	
 	public Oval(double a, double b) {
 		if (a > b) {
 			majorRadius = a; 
