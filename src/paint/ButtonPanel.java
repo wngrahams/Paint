@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-import shapes.Shape;
+import shapes.*;
 
 @SuppressWarnings("serial")
 public class ButtonPanel extends JPanel implements ActionListener {
@@ -64,20 +64,28 @@ public class ButtonPanel extends JPanel implements ActionListener {
 			}
 		}
 		else if (e.getSource() == lineButton) {
-
+			selectedShape = new Line();
+			for (DrawListener dl : drawListeners)
+				dl.shapeChanged(selectedShape);
 		}
 		else if (e.getSource() == ovalButton) {
-					
+			selectedShape = new Oval();
+			for (DrawListener dl : drawListeners)
+				dl.shapeChanged(selectedShape);
 		}
 		else if (e.getSource() == perimeterButton) {
 			String perimeter = "Total perimeter: " + shapes.getTotalPerimeter();
 			JOptionPane.showMessageDialog(null, perimeter, "Total Perimeter", JOptionPane.PLAIN_MESSAGE);
 		}
 		else if (e.getSource() == rectangleButton) {
-			
+			selectedShape = new Rectangle();
+			for (DrawListener dl : drawListeners)
+				dl.shapeChanged(selectedShape);
 		}
 		else if (e.getSource() == triangleButton) {
-			
+			selectedShape = new Triangle();
+			for (DrawListener dl : drawListeners)
+				dl.shapeChanged(selectedShape);
 		}
 		
 	}
