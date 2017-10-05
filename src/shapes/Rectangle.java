@@ -41,13 +41,21 @@ public class Rectangle extends Shape {
 		if (newDim.size() != 2)
 			throw new IllegalArgumentException("A rectangle is created with exactly 2 sides");
 		
-		dimensions.set(0, newDim.get(0));
-		dimensions.set(1, newDim.get(1));
+		setDimList(newDim.get(0), newDim.get(1));
 	}
 	
 	public void setDim(double height, double width) {
-		dimensions.set(0, height);
-		dimensions.set(1, width);
+		setDimList(height, width);
 	}
 
+	private void setDimList(double a, double b) {
+		if (dimensions.size() != 0) {
+			dimensions.set(0, a);
+			dimensions.set(1, b);
+		}
+		else {
+			dimensions.add(a);
+			dimensions.add(b);
+		}
+	}
 }

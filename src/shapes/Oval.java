@@ -50,24 +50,28 @@ public class Oval extends Shape {
 		if (newDim.size() != 2)
 			throw new IllegalArgumentException("An oval is created with exactly 2 dimensions");
 		
-		if (newDim.get(0) > newDim.get(1)) {
-			dimensions.set(0, newDim.get(0));
-			dimensions.set(1, newDim.get(1));
-		}
+		if (newDim.get(0) > newDim.get(1))
+			setDimList(newDim.get(0), newDim.get(1));
 		else {
-			dimensions.set(0, newDim.get(1));
-			dimensions.set(1, newDim.get(0));
+			setDimList(newDim.get(1), newDim.get(0));
 		}
 	}
 	
 	public void setDim(double a, double b) {
-		if (a > b) {
+		if (a > b)
+			setDimList(a, b);
+		else
+			setDimList(b, a);
+	}
+	
+	private void setDimList(double a, double b) {
+		if (dimensions.size() != 0) {
 			dimensions.set(0, a);
 			dimensions.set(1, b);
 		}
 		else {
-			dimensions.set(0, b);
-			dimensions.set(1, a);
+			dimensions.add(a);
+			dimensions.add(b);
 		}
 	}
 }

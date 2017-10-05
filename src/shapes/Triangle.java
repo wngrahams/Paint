@@ -45,16 +45,23 @@ public class Triangle extends Shape {
 		if (newDim.size() != 3)
 			throw new IllegalArgumentException("A triangle is created with exactly 3 sides");
 		
-		dimensions.set(0, newDim.get(0));
-		dimensions.set(1, newDim.get(1));
-		dimensions.set(2, newDim.get(2));
+		setDimList(newDim.get(0), newDim.get(1), newDim.get(2));
 	}
 	
 	public void setDim(double side1, double side2, double side3) {
-		dimensions.set(0, side1);
-		dimensions.set(1, side2);
-		dimensions.set(2, side3);
+		setDimList(side1, side2, side3);
 	}
 
-
+	private void setDimList(double a, double b, double c) {
+		if (dimensions.size() != 0) {
+			dimensions.set(0, a);
+			dimensions.set(1, b);
+			dimensions.set(2, c);
+		}
+		else {
+			dimensions.add(a);
+			dimensions.add(b);
+			dimensions.add(c);
+		}
+	}
 }

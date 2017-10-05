@@ -41,13 +41,22 @@ public class Line extends Shape {
 		if (newDim.size() != 2)
 			throw new IllegalArgumentException("A line is created with exactly 2 points");
 		
-		dimensions.set(0, newDim.get(0));
-		dimensions.set(1, newDim.get(1));
+		setDimList(newDim.get(0), newDim.get(1));
 	}
 	
 	public void setDim(double startPt, double endPt) {
-		dimensions.set(0, startPt);
-		dimensions.set(1, endPt);
+		setDimList(startPt, endPt);
+	}
+	
+	private void setDimList(double a, double b) {
+		if (dimensions.size() != 0) {
+			dimensions.set(0, a);
+			dimensions.set(1, b);
+		}
+		else {
+			dimensions.add(a);
+			dimensions.add(b);
+		}
 	}
 
 }
