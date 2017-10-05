@@ -12,6 +12,7 @@ import shapes.Shape;
 public class DrawPanel extends JPanel implements DrawListener, MouseListener, MouseMotionListener {
 
 	private Color drawColor;
+	private Shape drawShape;
 	
 	public DrawPanel() {
 		setDoubleBuffered(true);
@@ -78,8 +79,7 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 
 	@Override
 	public void shapeChanged(Shape newShape) {
-		// TODO Auto-generated method stub
-		
+		drawShape = newShape;
 	}
 
 }
