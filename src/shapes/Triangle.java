@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Triangle extends Shape {
-
-//	private double side1;
-//	private double side2;
-//	private double side3;
 	
 	public Triangle() {
 		dimensions = new ArrayList<Double>(3);
