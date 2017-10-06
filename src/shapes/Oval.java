@@ -1,5 +1,6 @@
 package shapes;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class Oval extends Shape {
 	}
 
 	@Override
-	public void drawShape() {
+	public void drawShape(Graphics g) {
 		// TODO Auto-generated method stub
 
 	}
