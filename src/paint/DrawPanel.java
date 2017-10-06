@@ -1,14 +1,16 @@
 package paint;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import javax.swing.JPanel;
-import shapes.Shape;
+import shapes.*;
 
+@SuppressWarnings("serial")
 public class DrawPanel extends JPanel implements DrawListener, MouseListener, MouseMotionListener {
 
 	private Color drawColor;
@@ -18,11 +20,15 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 		setDoubleBuffered(true);
 		
 		drawColor = Color.BLACK;
+		drawShape = new Rectangle();
 		initializePanel();
 	}
 	
 	private void initializePanel() {
 		setBackground(Color.WHITE);
+		
+		addMouseListener(this);
+	    addMouseMotionListener(this);
 	}
 	
 	@Override
@@ -50,14 +56,13 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+		// TODO: make it so that cursor goes back to crosshair after color is changed
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 	}
 
 	@Override
@@ -75,6 +80,7 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 	@Override
 	public void colorChanged(Color newColor) {
 		drawColor = newColor;
+		setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 	}
 
 	@Override

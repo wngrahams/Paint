@@ -84,6 +84,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		}
 		else if (e.getSource() == triangleButton) {
 			selectedShape = new Triangle();
+			// TODO: Clean these up by not saving selectedShape?
 			for (DrawListener dl : drawListeners)
 				dl.shapeChanged(selectedShape);
 		}
