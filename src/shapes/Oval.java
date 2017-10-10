@@ -50,8 +50,6 @@ public class Oval extends Shape {
 		int[] drawStart = new int [location.length];
 		int[] drawDim = new int [dimensions.length];
 		
-		// TODO: Fix negative drawing
-		
 		for (int i=0; i<dimensions.length; i++) {
 			if (dimensions[i] < 0) {
 				drawStart[i] = location[i] + (dimensions[i]*2);
