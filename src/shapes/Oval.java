@@ -36,7 +36,7 @@ public class Oval extends Shape {
 			double hNumerator = Math.pow(Math.abs(Math.abs(dimensions[0]) - Math.abs(dimensions[1])), 2);
 			double hDenominator = Math.pow((Math.abs(dimensions[0]) + Math.abs(dimensions[1])),2);
 			double h = hNumerator / hDenominator;
-			double perimApprox = (Math.PI) * (dimensions[0] + dimensions[1]);
+			double perimApprox = (Math.PI) * (Math.abs(dimensions[0]) + Math.abs(dimensions[1]));
 			perimApprox *= (1 + (3 * h)/(10 + Math.sqrt(4 - 3 * h)));
 			
 			return perimApprox;
