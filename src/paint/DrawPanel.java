@@ -22,6 +22,9 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 	
 	private ShapesList shapesList;
 	
+	private int triCounter = 0;
+	private int[] triPoints;
+	
 	public DrawPanel() {
 		setDoubleBuffered(true);
 		
@@ -51,8 +54,11 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 			drawShape = new Oval();
 		else if (Shape.RECTANGLE == shapeType)
 			drawShape = new Rectangle();
-		else if (Shape.TRIANGLE == shapeType)
+		else if (Shape.TRIANGLE == shapeType) {
 			drawShape = new Triangle();
+			triPoints = new int[6];
+			triCounter = 0;
+		}
 		
 		drawShape.setColor(drawColor);
 	}
@@ -70,23 +76,38 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		if (triCounter == 0)
+			createShape();
 		
+		if (Shape.TRIANGLE == shapeType && triCounter < 6) {
+			triPoints[triCounter] = e.getX();
+			triPoints[triCounter + 1] = e.getY();
+			triCounter += 2;
+		}
+		
+		if (triCounter >= 6){
+			drawShape.setLoc(triPoints);
+			shapesList.add(drawShape);
+			repaint();
+			triCounter = 0;
+		}
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		createShape();
-		startPos[0] = e.getX();
-		startPos[1] = e.getY();
-		drawShape.setLoc(startPos);
-		repaint();
+		if (Shape.TRIANGLE != shapeType) {
+			createShape();
+			startPos[0] = e.getX();
+			startPos[1] = e.getY();
+			drawShape.setLoc(startPos);
+			repaint();
+		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		shapesList.add(drawShape);
-		
+		if (Shape.TRIANGLE != shapeType)
+			shapesList.add(drawShape);
 	}
 
 	@Override
@@ -102,11 +123,13 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		dim[0] = e.getX() - startPos[0];
-		dim[1] = e.getY() - startPos[1];
-		
-		drawShape.setDim(dim);
-		repaint();
+		if (Shape.TRIANGLE != shapeType) {
+			dim[0] = e.getX() - startPos[0];
+			dim[1] = e.getY() - startPos[1];
+			
+			drawShape.setDim(dim);
+			repaint();
+		}
 	}
 
 	@Override

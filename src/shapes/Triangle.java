@@ -6,16 +6,19 @@ public class Triangle extends Shape {
 	
 	public Triangle() {
 		dimensions = new int[3];
+		location = new int[6];
 		this.setDim(0, 0, 0);
 	}
 
 	public Triangle(int s1, int s2, int s3) {
 		dimensions = new int[3];
+		location = new int[6];
 		this.setDim(s1, s2, s3);
 	}
 	
 	public Triangle(int[] newDim){
 		dimensions = new int[3];
+		location = new int[6];
 		this.setDim(newDim);
 	}
 
@@ -33,8 +36,18 @@ public class Triangle extends Shape {
 		return dimensions[0] + dimensions[1] + dimensions[2];
 	}
 	
-	public Triangle getShape(){
-		return new Triangle(dimensions);
+	@Override
+	public void drawShape(Graphics g) {
+		g.setColor(shapeColor);
+		int[] xLocation = new int[3];
+		int[] yLocation = new int[3];
+		for (int i=0; i<6; i++){
+			if (i%2 == 0)
+				xLocation[i/2] = location[i];
+			else
+				yLocation[i/2] = location[i];
+		}
+		g.fillPolygon(xLocation, yLocation, 3);
 	}
 	
 	@Override
@@ -50,18 +63,13 @@ public class Triangle extends Shape {
 		dimensions[2] = side3;
 	}
 
-
-	@Override
-	public void drawShape(Graphics g) {
-		// TODO Auto-generated method stub
-		g.setColor(shapeColor);
-		// g.fillPolygon()
-	}
-
 	@Override
 	public void setLoc(int[] newLoc) {
-		location[0] = newLoc[0];
-		location[1] = newLoc[1];
-		location[2] = newLoc[2];
+		for (int i=0; i<6; i++) {
+			location[i] = newLoc[i];
+		}
+		
+		// distance between two points
+//		setDim(location)
 	}
 }
