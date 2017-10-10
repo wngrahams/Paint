@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import shapes.*;
 
@@ -108,8 +109,9 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		if (Shape.TRIANGLE != shapeType)
+		if (Shape.TRIANGLE != shapeType) {
 			shapesList.add(drawShape);
+		}
 	}
 
 	@Override
@@ -126,27 +128,8 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		if (Shape.TRIANGLE != shapeType) {
-			
-//			if (e.getX() < startPos[0]) {
-//				int oldStartX = startPos[0];
-//				startPos[0] = e.getX();
-//				dim[0] = oldStartX - startPos[0];
-//			}
-//			else
-//				dim[0] = e.getX() - startPos[0];
-//			
-//			if (e.getX() < startPos[1]) {
-//				int oldStartY = startPos[1];
-//				startPos[1] = e.getY();
-//				dim[1] = oldStartY - startPos[1];
-//			}
-//			else
-//				dim[1] = e.getY() - startPos[1];
-			
 			dim[0] = e.getX() - startPos[0];
 			dim[1] = e.getY() - startPos[1];
-			
-//			System.out.println(dim[0] + ", " + dim[1]);
 			
 			drawShape.setDim(dim);
 			repaint();
@@ -167,6 +150,18 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 	@Override
 	public void shapeChanged(Shape newShape) {
 		shapeType = newShape;
+	}
+
+	@Override
+	public void calculateArea() {
+		String area = "Total Area: " + shapesList.getTotalArea();
+		JOptionPane.showMessageDialog(this, area, "Total Area", JOptionPane.PLAIN_MESSAGE);
+	}
+
+	@Override
+	public void calculatePerimeter() {
+		String perimeter = "Total perimeter: " + shapesList.getTotalPerimeter();
+		JOptionPane.showMessageDialog(this, perimeter, "Total Perimeter", JOptionPane.PLAIN_MESSAGE);
 	}
 
 }

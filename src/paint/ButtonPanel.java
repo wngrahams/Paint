@@ -49,8 +49,8 @@ public class ButtonPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Use an interface for this?
 		if (e.getSource() == areaButton) {
-			String area = "Total Area: " + shapes.getTotalArea();
-			JOptionPane.showMessageDialog(null, area, "Total Area", JOptionPane.PLAIN_MESSAGE);
+			for (DrawListener dl : drawListeners)
+				dl.calculateArea();
 		}
 		else if (e.getSource() == colorButton) {
 			Color oldColor = selectedColor;
@@ -74,8 +74,8 @@ public class ButtonPanel extends JPanel implements ActionListener {
 				dl.shapeChanged(selectedShape);
 		}
 		else if (e.getSource() == perimeterButton) {
-			String perimeter = "Total perimeter: " + shapes.getTotalPerimeter();
-			JOptionPane.showMessageDialog(null, perimeter, "Total Perimeter", JOptionPane.PLAIN_MESSAGE);
+			for (DrawListener dl : drawListeners)
+				dl.calculatePerimeter();
 		}
 		else if (e.getSource() == rectangleButton) {
 			selectedShape = Shape.RECTANGLE;
