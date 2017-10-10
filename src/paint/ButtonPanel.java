@@ -64,12 +64,12 @@ public class ButtonPanel extends JPanel implements ActionListener {
 			}
 		}
 		else if (e.getSource() == lineButton) {
-			selectedShape = new Line();
+			selectedShape = Shape.LINE;
 			for (DrawListener dl : drawListeners)
 				dl.shapeChanged(selectedShape);
 		}
 		else if (e.getSource() == ovalButton) {
-			selectedShape = new Oval();
+			selectedShape = Shape.OVAL;
 			for (DrawListener dl : drawListeners)
 				dl.shapeChanged(selectedShape);
 		}
@@ -78,12 +78,12 @@ public class ButtonPanel extends JPanel implements ActionListener {
 			JOptionPane.showMessageDialog(null, perimeter, "Total Perimeter", JOptionPane.PLAIN_MESSAGE);
 		}
 		else if (e.getSource() == rectangleButton) {
-			selectedShape = new Rectangle();
+			selectedShape = Shape.RECTANGLE;
 			for (DrawListener dl : drawListeners)
 				dl.shapeChanged(selectedShape);
 		}
 		else if (e.getSource() == triangleButton) {
-			selectedShape = new Triangle();
+			selectedShape = Shape.TRIANGLE;
 			// TODO: Clean these up by not saving selectedShape?
 			for (DrawListener dl : drawListeners)
 				dl.shapeChanged(selectedShape);

@@ -15,12 +15,25 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 
 	private Color drawColor;
 	private Shape drawShape;
+	private Shape shapeType;
+
+	private int[] startPos;
+	private int[] dim;
+	
+	private ShapesList shapesList;
 	
 	public DrawPanel() {
 		setDoubleBuffered(true);
 		
 		drawColor = Color.BLACK;
+		shapeType = Shape.RECTANGLE;
 		drawShape = new Rectangle();
+
+		startPos = new int [2];
+		dim = new int [2];
+		
+		shapesList = new ShapesList();
+		
 		initializePanel();
 	}
 	
@@ -31,9 +44,26 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 	    addMouseMotionListener(this);
 	}
 	
+	private void createShape() {
+		if (Shape.LINE == shapeType)
+			drawShape = new Line();
+		else if (Shape.OVAL == shapeType)
+			drawShape = new Oval();
+		else if (Shape.RECTANGLE == shapeType)
+			drawShape = new Rectangle();
+		else if (Shape.TRIANGLE == shapeType)
+			drawShape = new Triangle();
+	}
+	
 	@Override
 	public void paint(Graphics g){
-		super.paint(g);  // TODO: get rid of this, implement your own
+		g.setColor(drawColor);
+		
+		// draw shapes
+		drawShape.drawShape(g);
+		for (int i=0; i<shapesList.size(); i++)
+			shapesList.get(i).drawShape(g);;
+		
 	}
 
 	@Override
@@ -44,13 +74,16 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		createShape();
+		startPos[0] = e.getX();
+		startPos[1] = e.getY();
+		drawShape.setLoc(startPos);
+		repaint();
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
+		shapesList.add(drawShape);
 		
 	}
 
@@ -67,8 +100,11 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
+		dim[0] = e.getX() - startPos[0];
+		dim[1] = e.getY() - startPos[1];
 		
+		drawShape.setDim(dim);
+		repaint();
 	}
 
 	@Override
@@ -80,12 +116,11 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 	@Override
 	public void colorChanged(Color newColor) {
 		drawColor = newColor;
-		setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 	}
 
 	@Override
 	public void shapeChanged(Shape newShape) {
-		drawShape = newShape;
+		shapeType = newShape;
 	}
 
 }
