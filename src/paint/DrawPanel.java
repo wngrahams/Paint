@@ -62,10 +62,10 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 		g.setColor(drawColor);
 		
 		// draw shapes
-		drawShape.drawShape(g);
 		for (int i=0; i<shapesList.size(); i++)
 			shapesList.get(i).drawShape(g);;
 		
+		drawShape.drawShape(g);
 	}
 
 	@Override
