@@ -43,6 +43,7 @@ public class Oval extends Shape {
 	
 	@Override
 	public void drawShape(Graphics g) {
+		g.setColor(shapeColor);
 		g.fillOval(location[0], location[1], dimensions[0]*2, dimensions[1]*2);
 	}
 	

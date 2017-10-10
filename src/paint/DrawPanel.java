@@ -53,6 +53,8 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 			drawShape = new Rectangle();
 		else if (Shape.TRIANGLE == shapeType)
 			drawShape = new Triangle();
+		
+		drawShape.setColor(drawColor);
 	}
 	
 	@Override

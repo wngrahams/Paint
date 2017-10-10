@@ -34,6 +34,7 @@ public class Rectangle extends Shape {
 
 	@Override
 	public void drawShape(Graphics g) {
+		g.setColor(shapeColor);
 		g.fillRect(location[0], location[1], dimensions[0], dimensions[1]);
 	}
 	

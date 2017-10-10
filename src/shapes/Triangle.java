@@ -54,6 +54,7 @@ public class Triangle extends Shape {
 	@Override
 	public void drawShape(Graphics g) {
 		// TODO Auto-generated method stub
+		g.setColor(shapeColor);
 		// g.fillPolygon()
 	}
 
