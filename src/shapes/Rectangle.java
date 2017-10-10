@@ -24,18 +24,33 @@ public class Rectangle extends Shape {
 
 	@Override
 	public double calculateArea() {
-		return dimensions[0] * dimensions[1];
+		return Math.abs(dimensions[0] * dimensions[1]);
 	}
 
 	@Override
 	public double calculatePerimeter() {
-		return (2 * dimensions[0]) + (2 * dimensions[1]);
+		return (2 * Math.abs(dimensions[0])) + (2 * Math.abs(dimensions[1]));
 	}
 
 	@Override
 	public void drawShape(Graphics g) {
 		g.setColor(shapeColor);
-		g.fillRect(location[0], location[1], dimensions[0], dimensions[1]);
+		
+		int[] drawStart = new int [location.length];
+		int[] drawDim = new int [dimensions.length];
+		
+		for (int i=0; i<dimensions.length; i++) {
+			if (dimensions[i] < 0) {
+				drawStart[i] = location[i] + dimensions[i];
+				drawDim[i] = -1 * dimensions[i];
+			}
+			else {
+				drawStart[i] = location[i];
+				drawDim[i] = dimensions[i];
+			}
+		}
+		
+		g.fillRect(drawStart[0], drawStart[1], drawDim[0], drawDim[1]);
 	}
 	
 	@Override
