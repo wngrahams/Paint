@@ -1,8 +1,6 @@
 package shapes;
 
 import java.awt.Graphics;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Triangle extends Shape {
 	
