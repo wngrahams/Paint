@@ -33,7 +33,7 @@ public class Oval extends Shape {
 			return 2 * Math.PI * dimensions[0];
 		else {
 			// Use Ramanujan's approximation of the perimeter of an ellipse:
-			double h = Math.pow((dimensions[0] - dimensions[1]), 2) / Math.pow((dimensions[0] + dimensions[1]),2);
+			double h = Math.pow(Math.abs(dimensions[0] - dimensions[1]), 2) / Math.pow((dimensions[0] + dimensions[1]),2);
 			double perimApprox = (Math.PI) * (dimensions[0] + dimensions[1]);
 			perimApprox *= (1 + (3 * h)/(10 + Math.sqrt(4 - 3 * h)));
 			
@@ -49,25 +49,31 @@ public class Oval extends Shape {
 	
 	@Override
 	public void setDim(int[] newDim) {
-		if (newDim[0] > newDim[1]) {
-			dimensions[0] = newDim[0]/2;
-			dimensions[1] = newDim[1]/2;
-		}
-		else {
-			dimensions[0] = newDim[1];
-			dimensions[1] = newDim[0]/2;		
-		}
+//		if (newDim[0] > newDim[1]) {
+//			dimensions[0] = newDim[0]/2;
+//			dimensions[1] = newDim[1]/2;
+//		}
+//		else {
+//			dimensions[0] = newDim[1];
+//			dimensions[1] = newDim[0]/2;		
+//		}
+		
+		dimensions[0] = newDim[0]/2;
+		dimensions[1] = newDim[1]/2;
 	}
 	
 	public void setDim(int a, int b) {
-		if (a > b) {
-			dimensions[0] = a/2;
-			dimensions[1] = b/2;
-		}
-		else {
-			dimensions[0] = b/2;
-			dimensions[1] = a/2;		
-		}
+//		if (a > b) {
+//			dimensions[0] = a/2;
+//			dimensions[1] = b/2;
+//		}
+//		else {
+//			dimensions[0] = b/2;
+//			dimensions[1] = a/2;		
+//		}
+		
+		dimensions[0] = a/2;
+		dimensions[1] = b/2;
 	}
 
 	@Override
