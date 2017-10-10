@@ -10,6 +10,14 @@ public class ShapesList {
 	
 	private double totalPerimeter;
 	private double totalArea;
+	
+	public ShapesList() {
+		listOfShapes = new ArrayList<Shape>();
+	}
+	
+	public void add(Shape shapeToAdd) {
+		listOfShapes.add(shapeToAdd);
+	}
 
 	public double getTotalPerimeter() {
 		if (null != listOfShapes) { 
@@ -35,6 +43,14 @@ public class ShapesList {
 		}
 		
 		return 0;
+	}
+	
+	public final int size() {
+		return listOfShapes.size();
+	}
+	
+	public Shape get(int index) {
+		return listOfShapes.get(index);
 	}
 
 }
