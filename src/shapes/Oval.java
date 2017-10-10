@@ -1,78 +1,72 @@
 package shapes;
 
 import java.awt.Graphics;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Oval extends Shape {
 	
 	public Oval() {
-		dimensions = new ArrayList<Double>(2);
-		this.setDim(0.0, 0.0);
+		dimensions = new int[2];
+		this.setDim(0, 0);
 	}
 	
-	public Oval(double a, double b) {
-		dimensions = new ArrayList<Double>(2);
+	public Oval(int a, int b) {
+		dimensions = new int[2];
 		this.setDim(a, b);
 	}
 	
-	public Oval(List<Double> newDim) {
-		dimensions = new ArrayList<Double>(2);
+	public Oval(int[] newDim) {
+		dimensions = new int[2];
 		this.setDim(newDim);
 	}
 
 	@Override
 	public double calculateArea() {
-		return dimensions.get(0) * dimensions.get(1) * Math.PI;
+		return dimensions[0] * dimensions[1] * Math.PI;
 	}
 
 	@Override
 	public double calculatePerimeter() {
-		if (dimensions.get(0) == dimensions.get(1))
-			return 2* Math.PI * dimensions.get(0);
+		if (dimensions[0] == dimensions[1])
+			return 2 * Math.PI * dimensions[0];
 		else {
 			// Use Ramanujan's approximation of the perimeter of an ellipse:
-			double h = Math.pow((dimensions.get(0) - dimensions.get(1)), 2) / Math.pow((dimensions.get(0) + dimensions.get(1)),2);
-			double perimApprox = (Math.PI) * (dimensions.get(0) + dimensions.get(1));
+			double h = Math.pow((dimensions[0] - dimensions[1]), 2) / Math.pow((dimensions[0] + dimensions[1]),2);
+			double perimApprox = (Math.PI) * (dimensions[0] + dimensions[1]);
 			perimApprox *= (1 + (3 * h)/(10 + Math.sqrt(4 - 3 * h)));
 			
 			return perimApprox;
 		} 
 	}
-
+	
 	@Override
-	public void drawShape(Graphics g) {
-		// TODO Auto-generated method stub
-
+	public void drawShape(Graphics g, int[] pos) {
+		g.fillOval(pos[0], pos[1], dimensions[0] - pos[0], dimensions[1] - pos[1]);
 	}
-
+	
+	public Oval getShape(){
+		return new Oval(dimensions);
+	}
+	
 	@Override
-	public void setDim(List<Double> newDim) throws IllegalArgumentException {
-		if (newDim.size() != 2)
-			throw new IllegalArgumentException("An oval is created with exactly 2 dimensions");
-		
-		if (newDim.get(0) > newDim.get(1))
-			setDimList(newDim.get(0), newDim.get(1));
+	public void setDim(int[] newDim) {
+		if (newDim[0] > newDim[1]) {
+			dimensions[0] = newDim[0];
+			dimensions[1] = newDim[1];
+		}
 		else {
-			setDimList(newDim.get(1), newDim.get(0));
+			dimensions[0] = newDim[1];
+			dimensions[1] = newDim[0];		
 		}
 	}
 	
-	public void setDim(double a, double b) {
-		if (a > b)
-			setDimList(a, b);
-		else
-			setDimList(b, a);
-	}
-	
-	private void setDimList(double a, double b) {
-		if (dimensions.size() != 0) {
-			dimensions.set(0, a);
-			dimensions.set(1, b);
+	public void setDim(int a, int b) {
+		if (a > b) {
+			dimensions[0] = a;
+			dimensions[1] = b;
 		}
 		else {
-			dimensions.add(a);
-			dimensions.add(b);
+			dimensions[0] = b;
+			dimensions[1] = a;		
 		}
 	}
 }
