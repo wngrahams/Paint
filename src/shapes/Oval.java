@@ -54,8 +54,8 @@ public class Oval extends Shape {
 		
 		for (int i=0; i<dimensions.length; i++) {
 			if (dimensions[i] < 0) {
-				drawStart[i] = location[i] + dimensions[i];
-				drawDim[i] = -1 * dimensions[i];
+				drawStart[i] = location[i] + (dimensions[i]*2);
+				drawDim[i] = -1 * dimensions[i] ;
 			}
 			else {
 				drawStart[i] = location[i];
