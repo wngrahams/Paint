@@ -35,7 +35,7 @@ public class Line extends Shape {
 	@Override
 	public void drawShape(Graphics g) {
 		g.setColor(shapeColor);
-		g.drawLine(location[0], location[1], dimensions[0], dimensions[1]);
+		g.drawLine(location[0], location[1], dimensions[0]+location[0], dimensions[1]+location[1]);
 	}
 	
 	@Override
