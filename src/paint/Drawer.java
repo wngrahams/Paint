@@ -12,6 +12,7 @@ public class Drawer extends JFrame {
 
 	public Drawer() {
 		initializePanels();
+		this.setBackground(Color.WHITE);
 		
 		buttonPanel.addDrawListener(drawingPanel);
 		
@@ -31,7 +32,6 @@ public class Drawer extends JFrame {
 	    
 	    //Drawing panel
 	    drawingPanel = new DrawPanel();
-	    drawingPanel.setBackground(Color.WHITE);
 	    add(drawingPanel, BorderLayout.CENTER);
 	}
 

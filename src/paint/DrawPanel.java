@@ -32,8 +32,8 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 		shapeType = Shape.RECTANGLE;
 		drawShape = new Rectangle();
 
-		startPos = new int [2];
-		dim = new int [2];
+		startPos = new int[2];
+		dim = new int[2];
 		
 		shapesList = new ShapesList();
 		
@@ -76,20 +76,22 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if (triCounter == 0)
-			createShape();
-		
-		if (Shape.TRIANGLE == shapeType && triCounter < 6) {
-			triPoints[triCounter] = e.getX();
-			triPoints[triCounter + 1] = e.getY();
-			triCounter += 2;
-		}
-		
-		if (triCounter >= 6){
-			drawShape.setLoc(triPoints);
-			shapesList.add(drawShape);
-			repaint();
-			triCounter = 0;
+		if (Shape.TRIANGLE == shapeType) {
+			if (triCounter == 0)
+				createShape();
+			
+			if (triCounter < 6) {
+				triPoints[triCounter] = e.getX();
+				triPoints[triCounter + 1] = e.getY();
+				triCounter += 2;
+			}
+			
+			if (triCounter >= 6){
+				drawShape.setLoc(triPoints);
+				shapesList.add(drawShape);
+				repaint();
+				triCounter = 0;
+			}
 		}
 	}
 
@@ -124,8 +126,27 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		if (Shape.TRIANGLE != shapeType) {
+			
+//			if (e.getX() < startPos[0]) {
+//				int oldStartX = startPos[0];
+//				startPos[0] = e.getX();
+//				dim[0] = oldStartX - startPos[0];
+//			}
+//			else
+//				dim[0] = e.getX() - startPos[0];
+//			
+//			if (e.getX() < startPos[1]) {
+//				int oldStartY = startPos[1];
+//				startPos[1] = e.getY();
+//				dim[1] = oldStartY - startPos[1];
+//			}
+//			else
+//				dim[1] = e.getY() - startPos[1];
+			
 			dim[0] = e.getX() - startPos[0];
 			dim[1] = e.getY() - startPos[1];
+			
+//			System.out.println(dim[0] + ", " + dim[1]);
 			
 			drawShape.setDim(dim);
 			repaint();
