@@ -50,10 +50,17 @@ public class Triangle extends Shape {
 		dimensions[2] = side3;
 	}
 
+
 	@Override
-	public void drawShape(Graphics g, int[] pos) {
-		// TODO
-//		g.fillPolygon(xPoints, yPoints, nPoints);
-		
+	public void drawShape(Graphics g) {
+		// TODO Auto-generated method stub
+		// g.fillPolygon()
+	}
+
+	@Override
+	public void setLoc(int[] newLoc) {
+		location[0] = newLoc[0];
+		location[1] = newLoc[1];
+		location[2] = newLoc[2];
 	}
 }

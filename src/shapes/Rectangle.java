@@ -6,16 +6,19 @@ public class Rectangle extends Shape {
 	
 	public Rectangle() {
 		dimensions = new int[2];
+		location = new int[2];
 		this.setDim(0, 0);
 	}
 
 	public Rectangle(int height, int width) {
 		dimensions = new int[2];
+		location = new int[2];
 		this.setDim(height, width);
 	}
 	
 	public Rectangle(int[] newDim){
 		dimensions = new int[2];
+		location = new int[2];
 		this.setDim(newDim);
 	}
 
@@ -30,12 +33,8 @@ public class Rectangle extends Shape {
 	}
 
 	@Override
-	public void drawShape(Graphics g, int[] pos) {
-		g.fillRect(pos[0], pos[1], dimensions[0] - pos[0], dimensions[1] - pos[1]);
-	}
-	
-	public Rectangle getShape(){
-		return new Rectangle(dimensions);
+	public void drawShape(Graphics g) {
+		g.fillRect(location[0], location[1], dimensions[0], dimensions[1]);
 	}
 	
 	@Override
@@ -47,5 +46,11 @@ public class Rectangle extends Shape {
 	public void setDim(int height, int width) {
 		dimensions[0] = height;
 		dimensions[1] = width;
+	}
+
+	@Override
+	public void setLoc(int[] newLoc) {
+		location[0] = newLoc[0];
+		location[1] = newLoc[1];
 	}
 }

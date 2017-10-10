@@ -6,16 +6,19 @@ public class Line extends Shape {
 
 	public Line() {
 		dimensions = new int[2];
+		location = new int[2];
 		this.setDim(0, 0);
 	}
 	
 	public Line(int a, int b) {
 		dimensions = new int[2];
+		location = new int[2];
 		this.setDim(a, b);
 	}
 	
 	public Line(int[] newDim) {
 		dimensions = new int[2];
+		location = new int[2];
 		this.setDim(newDim);
 	}
 
@@ -30,8 +33,8 @@ public class Line extends Shape {
 	}
 	
 	@Override
-	public void drawShape(Graphics g, int[] pos) {
-		g.drawLine(pos[0], pos[1], dimensions[0] - pos[0], dimensions[1] - pos[1]);
+	public void drawShape(Graphics g) {
+		g.drawLine(location[0], location[1], dimensions[0], dimensions[1]);
 	}
 	
 	@Override
@@ -43,5 +46,11 @@ public class Line extends Shape {
 	public void setDim(int startPt, int endPt) {
 		dimensions[0] = startPt;
 		dimensions[1] = endPt;
+	}
+	
+	@Override
+	public void setLoc(int[] newLoc) {
+		location[0] = newLoc[0];
+		location[1] = newLoc[1];
 	}
 }

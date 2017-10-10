@@ -6,16 +6,19 @@ public class Oval extends Shape {
 	
 	public Oval() {
 		dimensions = new int[2];
+		location = new int[2];
 		this.setDim(0, 0);
 	}
 	
 	public Oval(int a, int b) {
 		dimensions = new int[2];
+		location = new int[2];
 		this.setDim(a, b);
 	}
 	
 	public Oval(int[] newDim) {
 		dimensions = new int[2];
+		location = new int[2];
 		this.setDim(newDim);
 	}
 
@@ -39,34 +42,36 @@ public class Oval extends Shape {
 	}
 	
 	@Override
-	public void drawShape(Graphics g, int[] pos) {
-		g.fillOval(pos[0], pos[1], dimensions[0] - pos[0], dimensions[1] - pos[1]);
-	}
-	
-	public Oval getShape(){
-		return new Oval(dimensions);
+	public void drawShape(Graphics g) {
+		g.fillOval(location[0], location[1], dimensions[0]*2, dimensions[1]*2);
 	}
 	
 	@Override
 	public void setDim(int[] newDim) {
 		if (newDim[0] > newDim[1]) {
-			dimensions[0] = newDim[0];
-			dimensions[1] = newDim[1];
+			dimensions[0] = newDim[0]/2;
+			dimensions[1] = newDim[1]/2;
 		}
 		else {
 			dimensions[0] = newDim[1];
-			dimensions[1] = newDim[0];		
+			dimensions[1] = newDim[0]/2;		
 		}
 	}
 	
 	public void setDim(int a, int b) {
 		if (a > b) {
-			dimensions[0] = a;
-			dimensions[1] = b;
+			dimensions[0] = a/2;
+			dimensions[1] = b/2;
 		}
 		else {
-			dimensions[0] = b;
-			dimensions[1] = a;		
+			dimensions[0] = b/2;
+			dimensions[1] = a/2;		
 		}
+	}
+
+	@Override
+	public void setLoc(int[] newLoc) {
+		location[0] = newLoc[0];
+		location[1] = newLoc[1];
 	}
 }
