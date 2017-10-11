@@ -21,6 +21,22 @@ public class Triangle extends Shape {
 		location = new int[6];
 		this.setDim(newDim);
 	}
+	
+	private void calculateDimFromLoc() {
+		for (int i=0; i<dimensions.length; i++) {
+			// TODO this isn't quite right
+			dimensions[i] = (int) Math.sqrt(Math.pow((location[(i+2)%6] - location[(2*i)%6]), 2) + Math.pow((location[(i+3)%6] - location[(i+3)%6]), 2));
+		}
+		System.out.print("Points: ");
+		for (int i=0; i<location.length; i++) {
+			System.out.print(location[i] + " ");
+		}
+		System.out.println();
+		System.out.print("Dimensions: ");
+		for (int i=0; i<dimensions.length; i++)
+			System.out.print(dimensions[i] + " ");
+		System.out.println();
+	}
 
 	@Override
 	public double calculateArea() {
@@ -69,7 +85,6 @@ public class Triangle extends Shape {
 			location[i] = newLoc[i];
 		}
 		
-		// distance between two points
-//		setDim(location)
+		calculateDimFromLoc();
 	}
 }
