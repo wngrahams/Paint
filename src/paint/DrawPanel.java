@@ -66,6 +66,12 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 	
 	@Override
 	public void paint(Graphics g){
+		// draw background
+		g.setColor( Color.WHITE ); 
+		int w = getWidth();  
+		int h = getHeight();
+		g.fillRect( 0, 0, w, h ); 
+		
 		g.setColor(drawColor);
 		
 		// draw shapes
