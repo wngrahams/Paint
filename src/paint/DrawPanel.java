@@ -104,7 +104,11 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if (Shape.TRIANGLE != shapeType) {
+		if (null == shapeType){
+			// adjust
+			// set draw shape equal to shape that was clicked
+		}
+		else if (Shape.TRIANGLE != shapeType) {
 			createShape();
 			startPos[0] = e.getX();
 			startPos[1] = e.getY();
@@ -115,7 +119,10 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		if (Shape.TRIANGLE != shapeType) {
+		if (null == shapeType){
+			// adjust
+		}
+		else if (Shape.TRIANGLE != shapeType) {
 			shapesList.add(drawShape);
 		}
 	}
