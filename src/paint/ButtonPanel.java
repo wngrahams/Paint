@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
@@ -22,8 +21,7 @@ import shapes.*;
 public class ButtonPanel extends JPanel implements ActionListener {
 	
 	private Color selectedColor;
-	private Shape selectedShape;
-		
+	
 	private JButton areaButton;
 	private JButton colorButton;
 	private JButton lineButton;
@@ -34,12 +32,10 @@ public class ButtonPanel extends JPanel implements ActionListener {
 	
 	private ArrayList<DrawListener> drawListeners = new ArrayList<DrawListener>(); 
 	
-	private ShapesList shapes;
-
 	public ButtonPanel() {
 		setDoubleBuffered(true);
 		
-		shapes = new ShapesList();
+		new ShapesList();
 		selectedColor = Color.BLACK;
 		
 		initializePanel();
@@ -49,8 +45,8 @@ public class ButtonPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Use an interface for this?
 		if (e.getSource() == areaButton) {
-			String area = "Total Area: " + shapes.getTotalArea();
-			JOptionPane.showMessageDialog(null, area, "Total Area", JOptionPane.PLAIN_MESSAGE);
+			for (DrawListener dl : drawListeners)
+				dl.calculateArea();
 		}
 		else if (e.getSource() == colorButton) {
 			Color oldColor = selectedColor;
@@ -64,28 +60,24 @@ public class ButtonPanel extends JPanel implements ActionListener {
 			}
 		}
 		else if (e.getSource() == lineButton) {
-			selectedShape = new Line();
 			for (DrawListener dl : drawListeners)
-				dl.shapeChanged(selectedShape);
+				dl.shapeChanged(Shape.LINE);
 		}
 		else if (e.getSource() == ovalButton) {
-			selectedShape = new Oval();
 			for (DrawListener dl : drawListeners)
-				dl.shapeChanged(selectedShape);
+				dl.shapeChanged(Shape.OVAL);
 		}
 		else if (e.getSource() == perimeterButton) {
-			String perimeter = "Total perimeter: " + shapes.getTotalPerimeter();
-			JOptionPane.showMessageDialog(null, perimeter, "Total Perimeter", JOptionPane.PLAIN_MESSAGE);
+			for (DrawListener dl : drawListeners)
+				dl.calculatePerimeter();
 		}
 		else if (e.getSource() == rectangleButton) {
-			selectedShape = new Rectangle();
 			for (DrawListener dl : drawListeners)
-				dl.shapeChanged(selectedShape);
+				dl.shapeChanged(Shape.RECTANGLE);
 		}
 		else if (e.getSource() == triangleButton) {
-			selectedShape = new Triangle();
 			for (DrawListener dl : drawListeners)
-				dl.shapeChanged(selectedShape);
+				dl.shapeChanged(Shape.TRIANGLE);
 		}
 		
 	}

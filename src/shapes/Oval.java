@@ -1,77 +1,83 @@
 package shapes;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.Graphics;
 
 public class Oval extends Shape {
 	
 	public Oval() {
-		dimensions = new ArrayList<Double>(2);
-		this.setDim(0.0, 0.0);
+		dimensions = new int[2];
+		location = new int[2];
+		this.setDim(0, 0);
 	}
 	
-	public Oval(double a, double b) {
-		dimensions = new ArrayList<Double>(2);
+	public Oval(int a, int b) {
+		dimensions = new int[2];
+		location = new int[2];
 		this.setDim(a, b);
 	}
 	
-	public Oval(List<Double> newDim) {
-		dimensions = new ArrayList<Double>(2);
+	public Oval(int[] newDim) {
+		dimensions = new int[2];
+		location = new int[2];
 		this.setDim(newDim);
 	}
 
 	@Override
 	public double calculateArea() {
-		return dimensions.get(0) * dimensions.get(1) * Math.PI;
+		return Math.abs(dimensions[0] * dimensions[1] * Math.PI);
 	}
 
 	@Override
 	public double calculatePerimeter() {
-		if (dimensions.get(0) == dimensions.get(1))
-			return 2* Math.PI * dimensions.get(0);
+		if (dimensions[0] == dimensions[1])
+			return Math.abs(2 * Math.PI * dimensions[0]);
 		else {
 			// Use Ramanujan's approximation of the perimeter of an ellipse:
-			double h = Math.pow((dimensions.get(0) - dimensions.get(1)), 2) / Math.pow((dimensions.get(0) + dimensions.get(1)),2);
-			double perimApprox = (Math.PI) * (dimensions.get(0) + dimensions.get(1));
+			double hNumerator = Math.pow(Math.abs(Math.abs(dimensions[0]) - Math.abs(dimensions[1])), 2);
+			double hDenominator = Math.pow((Math.abs(dimensions[0]) + Math.abs(dimensions[1])),2);
+			double h = hNumerator / hDenominator;
+			double perimApprox = (Math.PI) * (Math.abs(dimensions[0]) + Math.abs(dimensions[1]));
 			perimApprox *= (1 + (3 * h)/(10 + Math.sqrt(4 - 3 * h)));
 			
 			return perimApprox;
 		} 
 	}
-
+	
 	@Override
-	public void drawShape() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setDim(List<Double> newDim) throws IllegalArgumentException {
-		if (newDim.size() != 2)
-			throw new IllegalArgumentException("An oval is created with exactly 2 dimensions");
+	public void drawShape(Graphics g) {
+		g.setColor(shapeColor);
 		
-		if (newDim.get(0) > newDim.get(1))
-			setDimList(newDim.get(0), newDim.get(1));
-		else {
-			setDimList(newDim.get(1), newDim.get(0));
+		int[] drawStart = new int [location.length];
+		int[] drawDim = new int [dimensions.length];
+		
+		for (int i=0; i<dimensions.length; i++) {
+			if (dimensions[i] < 0) {
+				drawStart[i] = location[i] + (dimensions[i]*2);
+				drawDim[i] = -1 * dimensions[i] ;
+			}
+			else {
+				drawStart[i] = location[i];
+				drawDim[i] = dimensions[i];
+			}
 		}
+		
+		g.fillOval(drawStart[0], drawStart[1], drawDim[0]*2, drawDim[1]*2);
 	}
 	
-	public void setDim(double a, double b) {
-		if (a > b)
-			setDimList(a, b);
-		else
-			setDimList(b, a);
+	@Override
+	public void setDim(int[] newDim) {
+		dimensions[0] = newDim[0]/2;
+		dimensions[1] = newDim[1]/2;
 	}
 	
-	private void setDimList(double a, double b) {
-		if (dimensions.size() != 0) {
-			dimensions.set(0, a);
-			dimensions.set(1, b);
-		}
-		else {
-			dimensions.add(a);
-			dimensions.add(b);
-		}
+	public void setDim(int a, int b) {
+		dimensions[0] = a/2;
+		dimensions[1] = b/2;
+	}
+
+	@Override
+	public void setLoc(int[] newLoc) {
+		location[0] = newLoc[0];
+		location[1] = newLoc[1];
 	}
 }

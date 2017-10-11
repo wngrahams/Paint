@@ -1,67 +1,90 @@
 package shapes;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.Graphics;
 
 public class Triangle extends Shape {
 	
 	public Triangle() {
-		dimensions = new ArrayList<Double>(3);
-		this.setDim(0.0, 0.0, 0.0);
+		dimensions = new int[3];
+		location = new int[6];
+		this.setDim(0, 0, 0);
 	}
 
-	public Triangle(double s1, double s2, double s3) {
-		dimensions = new ArrayList<Double>(3);
+	public Triangle(int s1, int s2, int s3) {
+		dimensions = new int[3];
+		location = new int[6];
 		this.setDim(s1, s2, s3);
 	}
 	
-	public Triangle(List<Double> newDim){
-		dimensions = new ArrayList<Double>(3);
+	public Triangle(int[] newDim){
+		dimensions = new int[3];
+		location = new int[6];
 		this.setDim(newDim);
+	}
+	
+	private void calculateDimFromLoc() {
+		for (int i=0; i<dimensions.length; i++) {
+			// TODO this isn't quite right
+			dimensions[i] = (int) Math.sqrt(Math.pow((location[(i+2)%6] - location[(2*i)%6]), 2) + Math.pow((location[(i+3)%6] - location[(i+3)%6]), 2));
+		}
+		System.out.print("Points: ");
+		for (int i=0; i<location.length; i++) {
+			System.out.print(location[i] + " ");
+		}
+		System.out.println();
+		System.out.print("Dimensions: ");
+		for (int i=0; i<dimensions.length; i++)
+			System.out.print(dimensions[i] + " ");
+		System.out.println();
 	}
 
 	@Override
 	public double calculateArea() {
 		// Use Heron's formula to calculate area of a Triangle given 3 sides:
 		double halfPerimeter = this.calculatePerimeter() * 0.5;
-		double radicand = halfPerimeter * (halfPerimeter - dimensions.get(0)) * (halfPerimeter - dimensions.get(1)) * (halfPerimeter - dimensions.get(2));
+		double radicand = halfPerimeter * (halfPerimeter - dimensions[0]) * (halfPerimeter - dimensions[1]) * (halfPerimeter - dimensions[2]);
 		
 		return Math.sqrt(radicand);
 	}
 
 	@Override
 	public double calculatePerimeter() {
-		return dimensions.get(0) + dimensions.get(1) + dimensions.get(2);
-	}
-
-	@Override
-	public void drawShape() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setDim(List<Double> newDim) throws IllegalArgumentException {
-		if (newDim.size() != 3)
-			throw new IllegalArgumentException("A triangle is created with exactly 3 sides");
-		
-		setDimList(newDim.get(0), newDim.get(1), newDim.get(2));
+		return dimensions[0] + dimensions[1] + dimensions[2];
 	}
 	
-	public void setDim(double side1, double side2, double side3) {
-		setDimList(side1, side2, side3);
+	@Override
+	public void drawShape(Graphics g) {
+		g.setColor(shapeColor);
+		int[] xLocation = new int[3];
+		int[] yLocation = new int[3];
+		for (int i=0; i<6; i++){
+			if (i%2 == 0)
+				xLocation[i/2] = location[i];
+			else
+				yLocation[i/2] = location[i];
+		}
+		g.fillPolygon(xLocation, yLocation, 3);
+	}
+	
+	@Override
+	public void setDim(int[] newDim) {
+		dimensions[0] = newDim[0];
+		dimensions[1] = newDim[1];
+		dimensions[2] = newDim[2];
+	}
+	
+	public void setDim(int side1, int side2, int side3) {
+		dimensions[0] = side1;
+		dimensions[1] = side2;
+		dimensions[2] = side3;
 	}
 
-	private void setDimList(double a, double b, double c) {
-		if (dimensions.size() != 0) {
-			dimensions.set(0, a);
-			dimensions.set(1, b);
-			dimensions.set(2, c);
+	@Override
+	public void setLoc(int[] newLoc) {
+		for (int i=0; i<6; i++) {
+			location[i] = newLoc[i];
 		}
-		else {
-			dimensions.add(a);
-			dimensions.add(b);
-			dimensions.add(c);
-		}
+		
+		calculateDimFromLoc();
 	}
 }

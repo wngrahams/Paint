@@ -2,20 +2,7 @@ package paint;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JColorChooser;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
 
 @SuppressWarnings("serial")
 public class Drawer extends JFrame {
@@ -25,6 +12,7 @@ public class Drawer extends JFrame {
 
 	public Drawer() {
 		initializePanels();
+		this.setBackground(Color.WHITE);
 		
 		buttonPanel.addDrawListener(drawingPanel);
 		
@@ -44,7 +32,6 @@ public class Drawer extends JFrame {
 	    
 	    //Drawing panel
 	    drawingPanel = new DrawPanel();
-	    drawingPanel.setBackground(Color.WHITE);
 	    add(drawingPanel, BorderLayout.CENTER);
 	}
 

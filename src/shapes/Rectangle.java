@@ -1,61 +1,72 @@
 package shapes;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.Graphics;
 
 public class Rectangle extends Shape {
 	
 	public Rectangle() {
-		dimensions = new ArrayList<Double>(2);
-		this.setDim(0.0, 0.0);
+		dimensions = new int[2];
+		location = new int[2];
+		this.setDim(0, 0);
 	}
 
-	public Rectangle(double height, double width) {
-		dimensions = new ArrayList<Double>(2);
+	public Rectangle(int height, int width) {
+		dimensions = new int[2];
+		location = new int[2];
 		this.setDim(height, width);
 	}
 	
-	public Rectangle(List<Double> newDim){
-		dimensions = new ArrayList<Double>(2);
+	public Rectangle(int[] newDim){
+		dimensions = new int[2];
+		location = new int[2];
 		this.setDim(newDim);
 	}
 
 	@Override
 	public double calculateArea() {
-		return dimensions.get(0) * dimensions.get(1);
+		return Math.abs(dimensions[0] * dimensions[1]);
 	}
 
 	@Override
 	public double calculatePerimeter() {
-		return (2 * dimensions.get(0)) + (2 * dimensions.get(1));
+		return (2 * Math.abs(dimensions[0])) + (2 * Math.abs(dimensions[1]));
 	}
 
 	@Override
-	public void drawShape() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setDim(List<Double> newDim) throws IllegalArgumentException {
-		if (newDim.size() != 2)
-			throw new IllegalArgumentException("A rectangle is created with exactly 2 sides");
+	public void drawShape(Graphics g) {
+		g.setColor(shapeColor);
 		
-		setDimList(newDim.get(0), newDim.get(1));
+		int[] drawStart = new int [location.length];
+		int[] drawDim = new int [dimensions.length];
+		
+		for (int i=0; i<dimensions.length; i++) {
+			if (dimensions[i] < 0) {
+				drawStart[i] = location[i] + dimensions[i];
+				drawDim[i] = -1 * dimensions[i];
+			}
+			else {
+				drawStart[i] = location[i];
+				drawDim[i] = dimensions[i];
+			}
+		}
+		
+		g.fillRect(drawStart[0], drawStart[1], drawDim[0], drawDim[1]);
 	}
 	
-	public void setDim(double height, double width) {
-		setDimList(height, width);
+	@Override
+	public void setDim(int[] newDim) {
+		dimensions[0] = newDim[0];
+		dimensions[1] = newDim[1];
+	}
+	
+	public void setDim(int height, int width) {
+		dimensions[0] = height;
+		dimensions[1] = width;
 	}
 
-	private void setDimList(double a, double b) {
-		if (dimensions.size() != 0) {
-			dimensions.set(0, a);
-			dimensions.set(1, b);
-		}
-		else {
-			dimensions.add(a);
-			dimensions.add(b);
-		}
+	@Override
+	public void setLoc(int[] newLoc) {
+		location[0] = newLoc[0];
+		location[1] = newLoc[1];
 	}
 }
