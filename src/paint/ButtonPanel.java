@@ -22,8 +22,7 @@ import shapes.*;
 public class ButtonPanel extends JPanel implements ActionListener {
 	
 	private Color selectedColor;
-	private Shape selectedShape;
-		
+	
 	private JButton areaButton;
 	private JButton colorButton;
 	private JButton lineButton;
@@ -34,12 +33,10 @@ public class ButtonPanel extends JPanel implements ActionListener {
 	
 	private ArrayList<DrawListener> drawListeners = new ArrayList<DrawListener>(); 
 	
-	private ShapesList shapes;
-
 	public ButtonPanel() {
 		setDoubleBuffered(true);
 		
-		shapes = new ShapesList();
+		new ShapesList();
 		selectedColor = Color.BLACK;
 		
 		initializePanel();
@@ -64,29 +61,24 @@ public class ButtonPanel extends JPanel implements ActionListener {
 			}
 		}
 		else if (e.getSource() == lineButton) {
-			selectedShape = Shape.LINE;
 			for (DrawListener dl : drawListeners)
-				dl.shapeChanged(selectedShape);
+				dl.shapeChanged(Shape.LINE);
 		}
 		else if (e.getSource() == ovalButton) {
-			selectedShape = Shape.OVAL;
 			for (DrawListener dl : drawListeners)
-				dl.shapeChanged(selectedShape);
+				dl.shapeChanged(Shape.OVAL);
 		}
 		else if (e.getSource() == perimeterButton) {
 			for (DrawListener dl : drawListeners)
 				dl.calculatePerimeter();
 		}
 		else if (e.getSource() == rectangleButton) {
-			selectedShape = Shape.RECTANGLE;
 			for (DrawListener dl : drawListeners)
-				dl.shapeChanged(selectedShape);
+				dl.shapeChanged(Shape.RECTANGLE);
 		}
 		else if (e.getSource() == triangleButton) {
-			selectedShape = Shape.TRIANGLE;
-			// TODO: Clean these up by not saving selectedShape?
 			for (DrawListener dl : drawListeners)
-				dl.shapeChanged(selectedShape);
+				dl.shapeChanged(Shape.TRIANGLE);
 		}
 		
 	}
