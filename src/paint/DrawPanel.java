@@ -169,6 +169,9 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 		else if (Shape.TRIANGLE != shapeType) {
 			// add the newly drawn shape into the shapesList
 			shapesList.add(drawShape);
+			
+			shapeType = null;
+			drawShape = null;
 		}
 	}
 
