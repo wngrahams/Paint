@@ -28,6 +28,8 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 	private int triCounter = 0;
 	private int[] triPoints;
 	
+	private int removalIndex = -1;
+	
 	public DrawPanel() {
 		setDoubleBuffered(true);
 		
@@ -41,13 +43,6 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 		shapesList = new ShapesList();
 		
 		initializePanel();
-	}
-	
-	private void initializePanel() {
-		setBackground(Color.WHITE);
-		
-		addMouseListener(this);
-	    addMouseMotionListener(this);
 	}
 	
 	private void createShape() {
@@ -68,6 +63,13 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 		}
 		
 		drawShape.setColor(drawColor);
+	}
+	
+	private void initializePanel() {
+		setBackground(Color.WHITE);
+		
+		addMouseListener(this);
+	    addMouseMotionListener(this);
 	}
 	
 	@Override
@@ -113,15 +115,17 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 	public void mousePressed(MouseEvent e) {
 		if (null == shapeType){
 			createShape();
-			// adjust
-			// set draw shape equal to shape that was clicked
 			for (int i=shapesList.size()-1; i >= 0; i--) {
 				if (shapesList.get(i).contains(e.getX(), e.getY())) {
 					drawShape = shapesList.get(i);
 					mouseDiff = Arrays.copyOf(drawShape.getLoc(), drawShape.getLoc().length);
 					mouseDiff[0] = e.getX() - mouseDiff[0];
 					mouseDiff[1] = e.getY() - mouseDiff[1];
-					// remove drawShape
+					
+					shapesList.remove(i);
+					removalIndex = i;
+					
+					break;
 				}
 				else 
 					drawShape = null;
@@ -140,7 +144,9 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 	public void mouseReleased(MouseEvent e) {
 		if (null == shapeType) {
 			if (null != drawShape) {
-				
+				shapesList.add(removalIndex, drawShape);
+				drawShape = null;  // comment this out to show other way
+				repaint();
 			}
 		}
 		else if (Shape.TRIANGLE != shapeType) {
@@ -183,12 +189,20 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 		if (null == shapeType) {
 			for (int i=shapesList.size()-1; i >= 0; i--) {
 				System.out.println("i: " + i);
-				if (shapesList.get(i).contains(e.getX(), e.getY()))
+				if (shapesList.get(i).contains(e.getX(), e.getY())) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+					break;
+				}
 				else
 					setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 			}
 		}
+		else if (e.getX() < getWidth() && e.getX() > 0 && e.getY() < getHeight() && e.getY() > 0) {
+			this.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+			System.out.println("in frame");
+		}
+		else
+			setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
 	}
 
 	@Override

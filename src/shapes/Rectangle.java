@@ -35,8 +35,10 @@ public class Rectangle extends Shape {
 	@Override
 	public boolean contains(int x, int y) {
 		if ((x >= location[0]) && (x <= location[0] + dimensions[0]) 
-				&& (y >= location[1]) && (y <= location[1] + dimensions[1]))
+				&& (y >= location[1]) && (y <= location[1] + dimensions[1])) {
+			System.out.println("in the " + this.shapeColor + " shape");
 			return true;
+		}
 		
 		return false;
 	}
