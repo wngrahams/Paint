@@ -45,7 +45,7 @@ public class ShapesList {
 		return 0;
 	}
 	
-	public final int size() {
+	public int size() {
 		return listOfShapes.size();
 	}
 	

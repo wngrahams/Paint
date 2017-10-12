@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.Arrays;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -20,6 +21,7 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 
 	private int[] startPos;
 	private int[] dim;
+	private int[] mouseDiff;
 	
 	private ShapesList shapesList;
 	
@@ -60,6 +62,10 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 			triPoints = new int[6];
 			triCounter = 0;
 		}
+		else {
+			drawShape = null;
+			return;
+		}
 		
 		drawShape.setColor(drawColor);
 	}
@@ -78,7 +84,8 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 		for (int i=0; i<shapesList.size(); i++)
 			shapesList.get(i).drawShape(g);;
 		
-		drawShape.drawShape(g);
+		if (null != drawShape) 
+			drawShape.drawShape(g);
 	}
 
 	@Override
@@ -105,8 +112,20 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 	@Override
 	public void mousePressed(MouseEvent e) {
 		if (null == shapeType){
+			createShape();
 			// adjust
 			// set draw shape equal to shape that was clicked
+			for (int i=shapesList.size()-1; i >= 0; i--) {
+				if (shapesList.get(i).contains(e.getX(), e.getY())) {
+					drawShape = shapesList.get(i);
+					mouseDiff = Arrays.copyOf(drawShape.getLoc(), drawShape.getLoc().length);
+					mouseDiff[0] = e.getX() - mouseDiff[0];
+					mouseDiff[1] = e.getY() - mouseDiff[1];
+					// remove drawShape
+				}
+				else 
+					drawShape = null;
+			}
 		}
 		else if (Shape.TRIANGLE != shapeType) {
 			createShape();
@@ -119,8 +138,10 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		if (null == shapeType){
-			// adjust
+		if (null == shapeType) {
+			if (null != drawShape) {
+				
+			}
 		}
 		else if (Shape.TRIANGLE != shapeType) {
 			shapesList.add(drawShape);
@@ -140,7 +161,15 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		if (Shape.TRIANGLE != shapeType) {
+		if (null == shapeType) {
+			if (null != drawShape) {
+				startPos[0] = e.getX() - mouseDiff[0];
+				startPos[1] = e.getY() - mouseDiff[1];
+				drawShape.setLoc(startPos);
+				repaint();
+			}
+		}
+		else if (Shape.TRIANGLE != shapeType) {
 			dim[0] = e.getX() - startPos[0];
 			dim[1] = e.getY() - startPos[1];
 			
@@ -151,8 +180,15 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		if (null == shapeType) {
+			for (int i=shapesList.size()-1; i >= 0; i--) {
+				System.out.println("i: " + i);
+				if (shapesList.get(i).contains(e.getX(), e.getY()))
+					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				else
+					setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+			}
+		}
 	}
 
 	@Override

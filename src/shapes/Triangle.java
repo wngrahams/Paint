@@ -42,6 +42,12 @@ public class Triangle extends Shape {
 	}
 	
 	@Override
+	public boolean contains(int x, int y) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	@Override
 	public void drawShape(Graphics g) {
 		g.setColor(shapeColor);
 		int[] xLocation = new int[3];
