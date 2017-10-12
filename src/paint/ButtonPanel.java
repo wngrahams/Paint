@@ -22,6 +22,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
 	
 	private Color selectedColor;
 	
+	private JButton adjustButton;
 	private JButton areaButton;
 	private JButton colorButton;
 	private JButton lineButton;
@@ -44,7 +45,11 @@ public class ButtonPanel extends JPanel implements ActionListener {
 	
 	public void actionPerformed(ActionEvent e) {
 		// TODO Use an interface for this?
-		if (e.getSource() == areaButton) {
+		if (e.getSource() == adjustButton) {
+			for (DrawListener dl : drawListeners)
+				dl.shapeChanged(null);
+		}
+		else if (e.getSource() == areaButton) {
 			for (DrawListener dl : drawListeners)
 				dl.calculateArea();
 		}
@@ -106,10 +111,13 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		rectangleButton = new JButton(new ImageIcon("res/rectangle.png"));
 		triangleButton = new JButton(new ImageIcon("res/triangle.png"));
 		
+		adjustButton = new JButton("Adjust Shape");
+		
 		colorButton = new JButton("Choose Color");
 		changeColorIcon(selectedColor);
 		colorButton.setHorizontalTextPosition(SwingConstants.LEFT);
 		
+		adjustButton.addActionListener(this);
 		areaButton.addActionListener(this);
 		colorButton.addActionListener(this);
 		lineButton.addActionListener(this);
@@ -122,6 +130,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		add(ovalButton);
 		add(triangleButton);
 		add(lineButton);
+		add(adjustButton);
 		add(colorButton);
 		add(areaButton);
 		add(perimeterButton);

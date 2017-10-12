@@ -33,6 +33,26 @@ public class Line extends Shape {
 	}
 	
 	@Override
+	public boolean contains(int x, int y) {
+		if (x >= Math.min(location[0], location[0] + dimensions[0]) && 
+				x <= Math.max(location[0], location[0] + dimensions[0]) &&
+				y >= Math.min(location[1], location[1] + dimensions[1]) && 
+				y <= Math.max(location[1], location[1] + dimensions[1])) {
+			
+			if (dimensions[0] != 0) {
+				double slope = (dimensions[1] + 0.0)/dimensions[0];
+				double intercept = ((location[0] * dimensions[1] / dimensions[0]) - location[1]) * -1;
+				
+				if ((slope*x + intercept) <= y + 3 && (slope*x + intercept) >= y - 3)
+					return true;
+			}
+			else if (x <= location[0] + 3 && x >= location[0] - 3)
+				return true;
+		}
+		return false;
+	}
+	
+	@Override
 	public void drawShape(Graphics g) {
 		g.setColor(shapeColor);
 		g.drawLine(location[0], location[1], dimensions[0]+location[0], dimensions[1]+location[1]);
@@ -44,9 +64,9 @@ public class Line extends Shape {
 		dimensions[1] = newDim[1];
 	}
 	
-	public void setDim(int startPt, int endPt) {
-		dimensions[0] = startPt;
-		dimensions[1] = endPt;
+	public void setDim(int xDist, int yDist) {
+		dimensions[0] = xDist;
+		dimensions[1] = yDist;
 	}
 	
 	@Override

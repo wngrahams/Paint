@@ -18,6 +18,14 @@ public class ShapesList {
 	public void add(Shape shapeToAdd) {
 		listOfShapes.add(shapeToAdd);
 	}
+	
+	public void add(int index, Shape shapeToAdd) {
+		listOfShapes.add(index, shapeToAdd);
+	}
+	
+	public Shape get(int index) {
+		return listOfShapes.get(index);
+	}
 
 	public double getTotalPerimeter() {
 		if (null != listOfShapes) { 
@@ -45,12 +53,11 @@ public class ShapesList {
 		return 0;
 	}
 	
-	public final int size() {
-		return listOfShapes.size();
+	public void remove(int index) {
+		listOfShapes.remove(index);
 	}
 	
-	public Shape get(int index) {
-		return listOfShapes.get(index);
+	public int size() {
+		return listOfShapes.size();
 	}
-
 }

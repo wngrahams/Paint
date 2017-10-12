@@ -44,6 +44,20 @@ public class Oval extends Shape {
 	}
 	
 	@Override
+	public boolean contains(int x, int y) {
+		// find the origin of the ellipse at (h, k):
+		int h = location[0] + dimensions[0];
+		int k = location[1] + dimensions[1];
+		
+		// plug in x and y into the equation of an ellipse to see if they are contained within the bounds
+		double lhs = Math.pow(dimensions[1], 2) * Math.pow((x - h), 2) + 
+				Math.pow(dimensions[0], 2) * Math.pow((y - k), 2);
+		double rhs = Math.pow(dimensions[0], 2) * Math.pow(dimensions[1], 2);
+		
+		return (lhs <= rhs);
+	}
+	
+	@Override
 	public void drawShape(Graphics g) {
 		g.setColor(shapeColor);
 		

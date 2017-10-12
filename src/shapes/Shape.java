@@ -13,7 +13,12 @@ public abstract class Shape {
 	public abstract double calculateArea();
 	public abstract double calculatePerimeter();
 	
+	public abstract boolean contains(int x, int y);
 	public abstract void drawShape(Graphics g);
+	
+	public int[] getLoc() {
+		return location;
+	}
 	public abstract void setDim(int[] newDim);
 	public abstract void setLoc(int[] newLoc);
 	public void setColor(Color newColor) { shapeColor = newColor; }

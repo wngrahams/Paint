@@ -31,6 +31,17 @@ public class Rectangle extends Shape {
 	public double calculatePerimeter() {
 		return (2 * Math.abs(dimensions[0])) + (2 * Math.abs(dimensions[1]));
 	}
+	
+	@Override
+	public boolean contains(int x, int y) {
+		if ((x >= location[0]) && (x <= location[0] + dimensions[0]) 
+				&& (y >= location[1]) && (y <= location[1] + dimensions[1])) {
+			System.out.println("in the " + this.shapeColor + " shape");
+			return true;
+		}
+		
+		return false;
+	}
 
 	@Override
 	public void drawShape(Graphics g) {
