@@ -126,10 +126,8 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 			if (triCounter >= 6){
 				drawShape.setLoc(triPoints);
 				shapesList.add(drawShape);
-				
 				drawShape = null;
-				shapeType = null; 
-				
+				shapeType = null;
 				repaint();
 				triCounter = 0;
 			}
