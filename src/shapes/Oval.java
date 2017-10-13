@@ -24,13 +24,13 @@ public class Oval extends Shape {
 
 	@Override
 	public double calculateArea() {
-		return Math.abs(dimensions[0] * dimensions[1] * Math.PI);
+		return Math.abs(dimensions[0] * dimensions[1] * Math.PI) / (PIXELS_PER_CM * PIXELS_PER_CM);
 	}
 
 	@Override
 	public double calculatePerimeter() {
 		if (dimensions[0] == dimensions[1])
-			return Math.abs(2 * Math.PI * dimensions[0]);
+			return Math.abs(2 * Math.PI * dimensions[0]) / PIXELS_PER_CM;
 		else {
 			// Use Ramanujan's approximation of the perimeter of an ellipse:
 			double hNumerator = Math.pow(Math.abs(Math.abs(dimensions[0]) - Math.abs(dimensions[1])), 2);
@@ -39,7 +39,7 @@ public class Oval extends Shape {
 			double perimApprox = (Math.PI) * (Math.abs(dimensions[0]) + Math.abs(dimensions[1]));
 			perimApprox *= (1 + (3 * h)/(10 + Math.sqrt(4 - 3 * h)));
 			
-			return perimApprox;
+			return perimApprox / PIXELS_PER_CM;
 		} 
 	}
 	

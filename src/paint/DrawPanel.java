@@ -273,13 +273,13 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 
 	@Override
 	public void calculateArea() {
-		String area = "Total Area: " + shapesList.getTotalArea();
+		String area = "Total Area: " + shapesList.getTotalArea() + " cm\u00B2";
 		JOptionPane.showMessageDialog(this, area, "Total Area", JOptionPane.PLAIN_MESSAGE);
 	}
 
 	@Override
 	public void calculatePerimeter() {
-		String perimeter = "Total perimeter: " + shapesList.getTotalPerimeter();
+		String perimeter = "Total perimeter: " + shapesList.getTotalPerimeter() + " cm";
 		JOptionPane.showMessageDialog(this, perimeter, "Total Perimeter", JOptionPane.PLAIN_MESSAGE);
 	}
 

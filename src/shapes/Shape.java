@@ -2,6 +2,7 @@ package shapes;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 
 public abstract class Shape {
 	
@@ -27,5 +28,7 @@ public abstract class Shape {
 	public final static Shape OVAL = new Oval();
 	public final static Shape RECTANGLE = new Rectangle();
 	public final static Shape TRIANGLE = new Triangle();
+	
+	protected final static double PIXELS_PER_CM = (Toolkit.getDefaultToolkit().getScreenResolution()) / 2.54;
 }
 

@@ -24,12 +24,12 @@ public class Rectangle extends Shape {
 
 	@Override
 	public double calculateArea() {
-		return Math.abs(dimensions[0] * dimensions[1]);
+		return (Math.abs(dimensions[0] * dimensions[1]) / (PIXELS_PER_CM * PIXELS_PER_CM));
 	}
 
 	@Override
 	public double calculatePerimeter() {
-		return (2 * Math.abs(dimensions[0])) + (2 * Math.abs(dimensions[1]));
+		return ((2 * Math.abs(dimensions[0])) + (2 * Math.abs(dimensions[1]))) / PIXELS_PER_CM;
 	}
 	
 	@Override

@@ -31,14 +31,14 @@ public class Triangle extends Shape {
 	public double calculateArea() {
 		// Use Heron's formula to calculate area of a Triangle given 3 sides:
 		double halfPerimeter = this.calculatePerimeter() * 0.5;
-		double radicand = halfPerimeter * (halfPerimeter - dimensions[0]) * (halfPerimeter - dimensions[1]) * (halfPerimeter - dimensions[2]);
+		double radicand = halfPerimeter * (halfPerimeter - (dimensions[0]/PIXELS_PER_CM)) * (halfPerimeter - (dimensions[1]/PIXELS_PER_CM)) * (halfPerimeter - (dimensions[2]/PIXELS_PER_CM));
 		
-		return Math.sqrt(radicand);
+		return (Math.sqrt(radicand));
 	}
 
 	@Override
 	public double calculatePerimeter() {
-		return dimensions[0] + dimensions[1] + dimensions[2];
+		return (dimensions[0] + dimensions[1] + dimensions[2]) / PIXELS_PER_CM;
 	}
 		
 	@Override
