@@ -18,6 +18,7 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 	private Color drawColor;
 	private Shape drawShape;
 	private Shape shapeType;
+	private int adjustDirection = Shape.LOCATION_NOT_CONTAINED;
 
 	private int[] startPos;
 	private int[] dim;
@@ -69,9 +70,10 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 		// if we're adjusting 
 		if (null == shapeType) {
 			for (int i=shapesList.size()-1; i >= 0; i--) {
-				if (shapesList.get(i).contains(x, y)) {
+				int location = shapesList.get(i).contains(x, y);
+				if (location != Shape.LOCATION_NOT_CONTAINED) {
 					// if the mouse is over a drawn shape
-					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+					setCursor(Cursor.getPredefinedCursor(location));
 					break;
 				}
 				else
@@ -100,14 +102,52 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 		int w = getWidth();  
 		int h = getHeight();
 		g.fillRect( 0, 0, w, h ); 
-				
-		// draw shapes already in shapeList
-		for (int i=0; i<shapesList.size(); i++)
-			shapesList.get(i).drawShape(g);;
 		
-		// draw shape being dragged
-		if (null != drawShape) 
+		// regular drawing, not adjusting
+		if (null != drawShape && null != shapeType) {
+			for (int i=0; i<shapesList.size(); i++)
+				shapesList.get(i).drawShape(g);
+			
 			drawShape.drawShape(g);
+		}
+		else if (null == shapeType) {
+			// we are adjusting 
+			if (null == drawShape) {
+				// nothing has been clicked on yet, just draw all shapes in the list
+				for (int i=0; i<shapesList.size(); i++)
+					shapesList.get(i).drawShape(g);
+			}
+			else {
+				// a shape has been chosen for adjusting and was removed from the list
+				// draw all shapes including this one in their original order
+				for (int i=0; i<shapesList.size(); i++) {
+					if (i == removalIndex)
+						drawShape.drawShape(g);
+					shapesList.get(i).drawShape(g);
+				}
+				if (shapesList.size() == removalIndex)
+					drawShape.drawShape(g);
+			}
+		}
+		
+//		if (null != drawShape && null == shapeType) {
+//			for (int i=0; i<shapesList.size(); i++) {
+//				if (i != removalIndex)
+//					shapesList.get(i).drawShape(g);	
+//				else
+//					drawShape.drawShape(g);
+//			}
+//							
+//		}
+//		else if (null != drawShape && null != shapeType){
+//			// draw shapes already in shapeList
+//			for (int i=0; i<shapesList.size(); i++)
+//				shapesList.get(i).drawShape(g);
+//			
+//			// draw shape being dragged
+//			if (null != drawShape) 
+//				drawShape.drawShape(g);
+//		}
 	}
 
 	@Override
@@ -143,7 +183,7 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 			// iterate through the shapesList from back to front to find
 			// the most recently drawn shape that the mouse is within
 			for (int i=shapesList.size()-1; i >= 0; i--) {
-				if (shapesList.get(i).contains(e.getX(), e.getY())) {
+				if (shapesList.get(i).contains(e.getX(), e.getY()) != Shape.LOCATION_NOT_CONTAINED) {
 					drawShape = shapesList.get(i);
 					mouseDiff = Arrays.copyOf(drawShape.getLoc(), drawShape.getLoc().length);
 
