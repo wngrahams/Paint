@@ -54,6 +54,7 @@ public class Line extends Shape {
 				int xHolder = x;
 				int yHolder = y;
 				
+				// if slope is large, take the inverse of the equation to make comparison more accurate
 				if (Math.abs(slope) > 1) {
 					slope = 1 / slope;
 					intercept = (0.0 - intercept) * slope;
@@ -65,43 +66,32 @@ public class Line extends Shape {
 				if ((slope*x + intercept) <= y + 4 && (slope*x + intercept) >= y - 4) {
 					x = xHolder;
 					y = yHolder;
+					
 					// if cursor is on the line
-					if (x <= Math.min(location[0], location[0] + dimensions[0]) + Math.abs(dimensions[0])/3) {
-						if (y <= Math.min(location[1], location[1] + dimensions[1]) + Math.abs(dimensions[1])/3)
-							return LOCATION_N;
-						else 
-							return LOCATION_E;
-					}
-					else if (x >= Math.min(location[0], location[0] + dimensions[0]) + Math.abs(dimensions[0])* 2/3) {
-						if (y <= Math.min(location[1], location[1] + dimensions[1]) + Math.abs(dimensions[1])/3)
-							return LOCATION_N;
-						else 
-							return LOCATION_E;
-					}
-					else
+					double distFromPt1 = calculateDist(x, y, location[0], location[1]);
+					double distFromPt2 = calculateDist(x, y, location[0] + dimensions[0], location[1] + dimensions[1]);
+					double epsilon = calculateDist(location[0], location[1], location[0] + dimensions[0], location[1] + dimensions[1]) * 3.0/10.0;
+					
+					if ((distFromPt2 - epsilon) < distFromPt1 && distFromPt1 < (distFromPt2 + epsilon))
 						return LOCATION_MIDDLE;
+					else if (distFromPt1 > distFromPt2)
+						return LOCATION_N;
+					else 
+						return LOCATION_E;
 				}
 			}
 			else if (x <= location[0] + 4 && x >= location[0] - 4) {
 				// if slope is not defined && cursor is on the line
-				if (dimensions[1] > 0) {
-					if (y <= (location[1] + dimensions[1]/3))
-						return LOCATION_N;
-					else if (y >= (location[1] + dimensions[1]*2/3)) { 
-						return LOCATION_E;
-					}
-					else 
-						return LOCATION_MIDDLE;
-				}
-				else {
-					if (y >= (location[1] + dimensions[1]/3))
-						return LOCATION_N;
-					else if (y <= (location[1] + dimensions[1]*2/3)) { 
-						return LOCATION_E;
-					}
-					else 
-						return LOCATION_MIDDLE;
-				}
+				double distFromPt1 = calculateDist(x, y, location[0], location[1]);
+				double distFromPt2 = calculateDist(x, y, location[0] + dimensions[0], location[1] + dimensions[1]);
+				double epsilon = calculateDist(location[0], location[1], location[0] + dimensions[0], location[1] + dimensions[1]) * 3.0/10.0;
+				
+				if ((distFromPt2 - epsilon) < distFromPt1 && distFromPt1 < (distFromPt2 + epsilon))
+					return LOCATION_MIDDLE;
+				else if (distFromPt1 > distFromPt2)
+					return LOCATION_N;
+				else 
+					return LOCATION_E;
 			}
 		}
 		return LOCATION_NOT_CONTAINED;
