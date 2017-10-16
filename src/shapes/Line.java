@@ -40,20 +40,69 @@ public class Line extends Shape {
 	
 	@Override
 	public int contains(int x, int y) {
-		if (x >= Math.min(location[0], location[0] + dimensions[0]) && 
-				x <= Math.max(location[0], location[0] + dimensions[0]) &&
-				y >= Math.min(location[1], location[1] + dimensions[1]) && 
-				y <= Math.max(location[1], location[1] + dimensions[1])) {
+		if (x >= Math.min(location[0], location[0] + dimensions[0]) - 4 && 
+				x <= Math.max(location[0], location[0] + dimensions[0]) + 4 &&
+				y >= Math.min(location[1], location[1] + dimensions[1]) - 4 && 
+				y <= Math.max(location[1], location[1] + dimensions[1]) + 4) {
+			// in the "box" that this line is a diagonal of
 			
 			if (dimensions[0] != 0) {
+				// if slope is defined
 				double slope = (dimensions[1] + 0.0)/dimensions[0];
 				double intercept = ((location[0] * dimensions[1] / dimensions[0]) - location[1]) * -1;
 				
-				if ((slope*x + intercept) <= y + 3 && (slope*x + intercept) >= y - 3)
-					return LOCATION_MIDDLE;
+				int xHolder = x;
+				int yHolder = y;
+				
+				if (Math.abs(slope) > 1) {
+					slope = 1 / slope;
+					intercept = (0.0 - intercept) * slope;
+					int temp = x;
+					x = y;
+					y = temp;
+				}
+				
+				if ((slope*x + intercept) <= y + 4 && (slope*x + intercept) >= y - 4) {
+					x = xHolder;
+					y = yHolder;
+					// if cursor is on the line
+					if (x <= Math.min(location[0], location[0] + dimensions[0]) + Math.abs(dimensions[0])/3) {
+						if (y <= Math.min(location[1], location[1] + dimensions[1]) + Math.abs(dimensions[1])/3)
+							return LOCATION_N;
+						else 
+							return LOCATION_E;
+					}
+					else if (x >= Math.min(location[0], location[0] + dimensions[0]) + Math.abs(dimensions[0])* 2/3) {
+						if (y <= Math.min(location[1], location[1] + dimensions[1]) + Math.abs(dimensions[1])/3)
+							return LOCATION_N;
+						else 
+							return LOCATION_E;
+					}
+					else
+						return LOCATION_MIDDLE;
+				}
 			}
-			else if (x <= location[0] + 3 && x >= location[0] - 3)
-				return LOCATION_MIDDLE;
+			else if (x <= location[0] + 4 && x >= location[0] - 4) {
+				// if slope is not defined && cursor is on the line
+				if (dimensions[1] > 0) {
+					if (y <= (location[1] + dimensions[1]/3))
+						return LOCATION_N;
+					else if (y >= (location[1] + dimensions[1]*2/3)) { 
+						return LOCATION_E;
+					}
+					else 
+						return LOCATION_MIDDLE;
+				}
+				else {
+					if (y >= (location[1] + dimensions[1]/3))
+						return LOCATION_N;
+					else if (y <= (location[1] + dimensions[1]*2/3)) { 
+						return LOCATION_E;
+					}
+					else 
+						return LOCATION_MIDDLE;
+				}
+			}
 		}
 		return LOCATION_NOT_CONTAINED;
 	}
