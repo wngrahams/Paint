@@ -1,8 +1,11 @@
 package paint;
 
+import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.MouseInfo;
+import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -22,7 +25,6 @@ public class ButtonPanel extends JPanel implements ActionListener {
 	
 	private Color selectedColor;
 	
-	private JButton adjustButton;
 	private JButton areaButton;
 	private JButton colorButton;
 	private JButton lineButton;
@@ -45,13 +47,11 @@ public class ButtonPanel extends JPanel implements ActionListener {
 	
 	public void actionPerformed(ActionEvent e) {
 		// TODO Use an interface for this?
-		if (e.getSource() == adjustButton) {
-			for (DrawListener dl : drawListeners)
-				dl.shapeChanged(null);
-		}
-		else if (e.getSource() == areaButton) {
+		if (e.getSource() == areaButton) {
 			for (DrawListener dl : drawListeners)
 				dl.calculateArea();
+			
+			resetCursor();
 		}
 		else if (e.getSource() == colorButton) {
 			Color oldColor = selectedColor;
@@ -63,6 +63,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
 				for (DrawListener dl : drawListeners)
 					dl.colorChanged(selectedColor);
 			}
+			resetCursor();
 		}
 		else if (e.getSource() == lineButton) {
 			for (DrawListener dl : drawListeners)
@@ -75,6 +76,8 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		else if (e.getSource() == perimeterButton) {
 			for (DrawListener dl : drawListeners)
 				dl.calculatePerimeter();
+			
+			resetCursor();
 		}
 		else if (e.getSource() == rectangleButton) {
 			for (DrawListener dl : drawListeners)
@@ -110,14 +113,11 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		ovalButton = new JButton(new ImageIcon("res/oval.png"));
 		rectangleButton = new JButton(new ImageIcon("res/rectangle.png"));
 		triangleButton = new JButton(new ImageIcon("res/triangle.png"));
-		
-		adjustButton = new JButton("Adjust Shape");
-		
+				
 		colorButton = new JButton("Choose Color");
 		changeColorIcon(selectedColor);
 		colorButton.setHorizontalTextPosition(SwingConstants.LEFT);
 		
-		adjustButton.addActionListener(this);
 		areaButton.addActionListener(this);
 		colorButton.addActionListener(this);
 		lineButton.addActionListener(this);
@@ -125,12 +125,11 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		perimeterButton.addActionListener(this);
 		rectangleButton.addActionListener(this);
 		triangleButton.addActionListener(this);
-		
+				
 		add(rectangleButton);
 		add(ovalButton);
 		add(triangleButton);
 		add(lineButton);
-		add(adjustButton);
 		add(colorButton);
 		add(areaButton);
 		add(perimeterButton);
@@ -140,5 +139,18 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		setBackground(Color.LIGHT_GRAY);
 	    setLayout(new GridLayout(1, 0));
 	    setBorder(new LineBorder(Color.DARK_GRAY));
+	}
+	
+	private void resetCursor() {
+		// reset cursor so cursor changes still work:
+		try {
+			Robot bot = new Robot();
+			int oldX = MouseInfo.getPointerInfo().getLocation().x;
+			int oldY = MouseInfo.getPointerInfo().getLocation().y;
+			bot.mouseMove(0, 0);
+			bot.mouseMove(oldX, oldY);
+		} catch (AWTException ex) {
+			// do nothing
+		}
 	}
 }
