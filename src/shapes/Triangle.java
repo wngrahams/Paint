@@ -24,7 +24,25 @@ public class Triangle extends Shape {
 	
 	@Override
 	public void adjust(int newX, int newY, int direction) {
-		// TODO Auto-generated method stub
+		if(LOCATION_NW == direction)
+		{
+			//System.out.println("inside adjust shaep loc -> near 1st point");
+			location[0] = newX;
+			location[1] = newY;
+			setLoc(location);
+		}
+		if(LOCATION_SE == direction)
+		{
+			location[2] = newX;
+			location[3] = newY;
+			setLoc(location);
+		}
+		if(LOCATION_SW == direction)
+		{
+			location[4] = newX;
+			location[5] = newY;
+			setLoc(location);
+		}
 		
 	}
 	
@@ -72,7 +90,26 @@ public class Triangle extends Shape {
 		double lambda2 = (dot00 * dot12 - dot01 * dot02) * denominator;
 		
 		if ((lambda1 >= 0) && (lambda2 >= 0) && (lambda1 + lambda2 < 1))
-			return LOCATION_MIDDLE;
+		{
+			double distance1 = calculateDist(x, y, location[0], location[1]);
+			double distance2 = calculateDist(x, y, location[2], location[3]);
+			double distance3 = calculateDist(x, y, location[4], location[5]);
+			//double epsilon =  
+			
+			if(distance1 < distance2 &&  distance1 < distance3)
+				return LOCATION_NW;
+			else if(distance2 < distance1 &&  distance2 < distance3)
+				return LOCATION_SE;
+			else if(distance3 < distance1 &&  distance3 < distance2)
+				return LOCATION_SW;
+			
+			/*
+			else if(distance1 - epsilon < distance2 < distance3 + epsilon)
+			{
+				
+			}*/
+		}
+			
 		
 		return LOCATION_NOT_CONTAINED;
 	}
