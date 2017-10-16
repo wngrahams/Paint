@@ -1,8 +1,11 @@
 package paint;
 
+import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.MouseInfo;
+import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -47,6 +50,8 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		if (e.getSource() == areaButton) {
 			for (DrawListener dl : drawListeners)
 				dl.calculateArea();
+			
+			resetCursor();
 		}
 		else if (e.getSource() == colorButton) {
 			Color oldColor = selectedColor;
@@ -58,6 +63,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
 				for (DrawListener dl : drawListeners)
 					dl.colorChanged(selectedColor);
 			}
+			resetCursor();
 		}
 		else if (e.getSource() == lineButton) {
 			for (DrawListener dl : drawListeners)
@@ -70,6 +76,8 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		else if (e.getSource() == perimeterButton) {
 			for (DrawListener dl : drawListeners)
 				dl.calculatePerimeter();
+			
+			resetCursor();
 		}
 		else if (e.getSource() == rectangleButton) {
 			for (DrawListener dl : drawListeners)
@@ -131,5 +139,18 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		setBackground(Color.LIGHT_GRAY);
 	    setLayout(new GridLayout(1, 0));
 	    setBorder(new LineBorder(Color.DARK_GRAY));
+	}
+	
+	private void resetCursor() {
+		// reset cursor so cursor changes still work:
+		try {
+			Robot bot = new Robot();
+			int oldX = MouseInfo.getPointerInfo().getLocation().x;
+			int oldY = MouseInfo.getPointerInfo().getLocation().y;
+			bot.mouseMove(0, 0);
+			bot.mouseMove(oldX, oldY);
+		} catch (AWTException ex) {
+			// do nothing
+		}
 	}
 }
