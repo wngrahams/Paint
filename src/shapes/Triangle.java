@@ -22,6 +22,12 @@ public class Triangle extends Shape {
 		this.setDim(newDim);
 	}
 	
+	@Override
+	public void adjust(int newX, int newY, int direction) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	private void calculateDimFromLoc() {
 		for (int i=0; i<dimensions.length; i++)
 			dimensions[i] = (int) Math.sqrt(Math.pow((location[(2*i+2)%6] - location[(2*i)%6]), 2) + Math.pow((location[(2*i+3)%6] - location[(2*i+1)%6]), 2));

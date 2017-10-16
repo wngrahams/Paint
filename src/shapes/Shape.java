@@ -11,6 +11,8 @@ public abstract class Shape {
 	
 	protected Color shapeColor = Color.BLACK;
 	
+	public abstract void adjust(int newX, int newY, int direction);
+	
 	public abstract double calculateArea();
 	public abstract double calculatePerimeter();
 	
@@ -19,6 +21,9 @@ public abstract class Shape {
 	
 	public int[] getLoc() {
 		return location;
+	}
+	public int[] getDim() {  // TODO remove this
+		return dimensions;
 	}
 	public abstract void setDim(int[] newDim);
 	public abstract void setLoc(int[] newLoc);

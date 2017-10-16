@@ -21,6 +21,12 @@ public class Oval extends Shape {
 		location = new int[2];
 		this.setDim(newDim);
 	}
+	
+	@Override
+	public void adjust(int newX, int newY, int direction) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	public double calculateArea() {
