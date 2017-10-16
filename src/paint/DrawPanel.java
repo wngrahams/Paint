@@ -200,7 +200,6 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-//		setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 		// TODO: make it so that cursor goes back to crosshair after color is changed
 		determineCursor(0, 0);
 	}
@@ -240,24 +239,6 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-//		// if we're adjusting 
-//		if (null == shapeType) {
-//			for (int i=shapesList.size()-1; i >= 0; i--) {
-//				if (shapesList.get(i).contains(e.getX(), e.getY())) {
-//					// if the mouse is over a drawn shape
-//					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-//					break;
-//				}
-//				else
-//					setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
-//			}
-//		}
-//		// otherwise set cursor to crosshair for drawing 
-//		else if (e.getX() < getWidth() && e.getX() > 0 && e.getY() < getHeight() && e.getY() > 0) {
-//			this.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
-//		}
-//		else
-//			setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
 		determineCursor(e.getX(), e.getY());
 	}
 

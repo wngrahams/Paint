@@ -117,7 +117,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		perimeterButton.addActionListener(this);
 		rectangleButton.addActionListener(this);
 		triangleButton.addActionListener(this);
-		
+				
 		add(rectangleButton);
 		add(ovalButton);
 		add(triangleButton);
