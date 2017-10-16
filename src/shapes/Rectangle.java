@@ -33,14 +33,26 @@ public class Rectangle extends Shape {
 	}
 	
 	@Override
-	public boolean contains(int x, int y) {
+	public int contains(int x, int y) {
 		if ((x >= location[0]) && (x <= location[0] + dimensions[0]) 
 				&& (y >= location[1]) && (y <= location[1] + dimensions[1])) {
-			System.out.println("in the " + this.shapeColor + " shape");
-			return true;
+			
+			// Mouse is in the shape. Now determine what part of the shape:
+			if(x < location[0] + (dimensions[0]/2)) {
+				if (y < location[1] + (dimensions[1]/2)) 
+					return LOCATION_NW;
+				else 
+					return LOCATION_SW;
+			}
+			else {
+				if (y < location[1] + (dimensions[1]/2))
+					return LOCATION_NE;
+				else 
+					return LOCATION_SE;
+			}
 		}
 		
-		return false;
+		return LOCATION_NOT_CONTAINED;
 	}
 
 	@Override

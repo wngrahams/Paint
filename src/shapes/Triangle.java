@@ -42,7 +42,7 @@ public class Triangle extends Shape {
 	}
 		
 	@Override
-	public boolean contains(int x, int y) {
+	public int contains(int x, int y) {
 		// Use barycentric technique to determine if point (x,y) is within the bounds of this triangle
 		int[] v0 = new int[2];
 		int[] v1 = new int[2];
@@ -65,7 +65,10 @@ public class Triangle extends Shape {
 		double lambda1 = (dot11 * dot02 - dot01 * dot12) * denominator;
 		double lambda2 = (dot00 * dot12 - dot01 * dot02) * denominator;
 		
-		return (lambda1 >= 0) && (lambda2 >= 0) && (lambda1 + lambda2 < 1);
+		if ((lambda1 >= 0) && (lambda2 >= 0) && (lambda1 + lambda2 < 1))
+			return LOCATION_MIDDLE;
+		
+		return LOCATION_NOT_CONTAINED;
 	}
 	
 	private long dot(int[] a, int[] b) {

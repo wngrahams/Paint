@@ -33,7 +33,7 @@ public class Line extends Shape {
 	}
 	
 	@Override
-	public boolean contains(int x, int y) {
+	public int contains(int x, int y) {
 		if (x >= Math.min(location[0], location[0] + dimensions[0]) && 
 				x <= Math.max(location[0], location[0] + dimensions[0]) &&
 				y >= Math.min(location[1], location[1] + dimensions[1]) && 
@@ -44,12 +44,12 @@ public class Line extends Shape {
 				double intercept = ((location[0] * dimensions[1] / dimensions[0]) - location[1]) * -1;
 				
 				if ((slope*x + intercept) <= y + 3 && (slope*x + intercept) >= y - 3)
-					return true;
+					return LOCATION_MIDDLE;
 			}
 			else if (x <= location[0] + 3 && x >= location[0] - 3)
-				return true;
+				return LOCATION_MIDDLE;
 		}
-		return false;
+		return LOCATION_NOT_CONTAINED;
 	}
 	
 	@Override

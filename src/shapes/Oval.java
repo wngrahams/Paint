@@ -44,7 +44,7 @@ public class Oval extends Shape {
 	}
 	
 	@Override
-	public boolean contains(int x, int y) {
+	public int contains(int x, int y) {
 		// find the origin of the ellipse at (h, k):
 		int h = location[0] + dimensions[0];
 		int k = location[1] + dimensions[1];
@@ -54,7 +54,10 @@ public class Oval extends Shape {
 				Math.pow(dimensions[0], 2) * Math.pow((y - k), 2);
 		double rhs = Math.pow(dimensions[0], 2) * Math.pow(dimensions[1], 2);
 		
-		return (lhs <= rhs);
+		if (lhs <= rhs)
+			return LOCATION_MIDDLE;
+		
+		return LOCATION_NOT_CONTAINED;
 	}
 	
 	@Override
