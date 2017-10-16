@@ -69,6 +69,7 @@ public class Rectangle extends Shape {
 	
 	@Override
 	public int contains(int x, int y) {
+		// do this to deal with negative dimensions
 		resetLocAndDim();
 		
 		if ((x >= location[0]) && (x <= location[0] + dimensions[0]) 
@@ -125,7 +126,7 @@ public class Rectangle extends Shape {
 		g.fillRect(drawStart[0], drawStart[1], drawDim[0], drawDim[1]);
 	}
 	
-	private void resetLocAndDim() {
+	private void resetLocAndDim() {  // TODO: move this to Shape?
 		for (int i=0; i<dimensions.length; i++) {
 			if (dimensions[i] < 0) {
 				location[i] = location[i] + dimensions[i];
