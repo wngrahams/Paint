@@ -181,8 +181,9 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 					shapesList.remove(i);
 					removalIndex = i;
 					
-					System.out.println("Location: " + drawShape.getLoc()[0] + ", " + drawShape.getLoc()[1]);
-					System.out.println("Dimensions: " + drawShape.getDim()[0] + ", " + drawShape.getDim()[1]);
+					System.out.print("Location: " + drawShape.getLoc()[0] + ", " + drawShape.getLoc()[1]);
+					System.out.print("\tDimensions: " + drawShape.getDim()[0] + ", " + drawShape.getDim()[1]);
+					System.out.println("\tMouse: (" + e.getX() + ", " + e.getY() + ")");
 					
 					break;
 				}
@@ -207,8 +208,8 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 		if (null == shapeType) {
 			if (null != drawShape) {	
 				
-				System.out.println("Location: " + drawShape.getLoc()[0] + ", " + drawShape.getLoc()[1]);
-				System.out.println("Dimensions: " + drawShape.getDim()[0] + ", " + drawShape.getDim()[1]);
+//				System.out.println("Location: " + drawShape.getLoc()[0] + ", " + drawShape.getLoc()[1]);
+//				System.out.println("Dimensions: " + drawShape.getDim()[0] + ", " + drawShape.getDim()[1]);
 				
 				// add the adjusted shape back into the shapesList
 				shapesList.add(removalIndex, drawShape);
