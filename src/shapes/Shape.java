@@ -16,6 +16,10 @@ public abstract class Shape {
 	public abstract double calculateArea();
 	public abstract double calculatePerimeter();
 	
+	protected double calculateDist(int x1, int y1, int x2, int y2) {
+		return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+	}
+	
 	public abstract int contains(int x, int y);
 	public abstract void drawShape(Graphics g);
 	

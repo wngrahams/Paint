@@ -30,7 +30,7 @@ public class Triangle extends Shape {
 	
 	private void calculateDimFromLoc() {
 		for (int i=0; i<dimensions.length; i++)
-			dimensions[i] = (int) Math.sqrt(Math.pow((location[(2*i+2)%6] - location[(2*i)%6]), 2) + Math.pow((location[(2*i+3)%6] - location[(2*i+1)%6]), 2));
+			dimensions[i] = (int) calculateDist(location[(2*i)%6], location[(2*i+1)%6], location[(2*i+2)%6], location[(2*i+3)%6]);
 	}
 
 	@Override
