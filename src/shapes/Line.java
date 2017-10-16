@@ -1,6 +1,7 @@
 package shapes;
 
 import java.awt.Graphics;
+import java.util.Arrays;
 
 public class Line extends Shape {
 
@@ -24,8 +25,16 @@ public class Line extends Shape {
 	
 	@Override
 	public void adjust(int newX, int newY, int direction) {
-		// TODO Auto-generated method stub
+		int[] oldLoc = Arrays.copyOf(location, location.length);
 		
+		if (LOCATION_E == direction) {
+			setLoc(newX, newY);
+			setDim(dimensions[0] + (oldLoc[0] - location[0]), dimensions[1] + (oldLoc[1] - location[1]));
+		}
+		else if (LOCATION_W == direction)
+			setDim(newX - location[0], newY - location[1]);
+		else
+			setLoc(newX, newY);
 	}
 
 	@Override
@@ -75,7 +84,7 @@ public class Line extends Shape {
 					if ((distFromPt2 - epsilon) < distFromPt1 && distFromPt1 < (distFromPt2 + epsilon))
 						return LOCATION_MIDDLE;
 					else if (distFromPt1 > distFromPt2)
-						return LOCATION_N;
+						return LOCATION_W;
 					else 
 						return LOCATION_E;
 				}
@@ -89,7 +98,7 @@ public class Line extends Shape {
 				if ((distFromPt2 - epsilon) < distFromPt1 && distFromPt1 < (distFromPt2 + epsilon))
 					return LOCATION_MIDDLE;
 				else if (distFromPt1 > distFromPt2)
-					return LOCATION_N;
+					return LOCATION_W;
 				else 
 					return LOCATION_E;
 			}
@@ -118,5 +127,10 @@ public class Line extends Shape {
 	public void setLoc(int[] newLoc) {
 		location[0] = newLoc[0];
 		location[1] = newLoc[1];
+	}
+	
+	public void setLoc(int x, int y) {
+		location[0] = x;
+		location[1] = y;
 	}
 }
