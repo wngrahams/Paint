@@ -244,17 +244,17 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 		if (null == shapeType) {
 			if (null != drawShape) {
 				// once it's determined that we've successfully clicked on a drawn shape
-				startPos = new int[mouseDiff.length];
-				for (int i=0; i<startPos.length; i++) {
-					if (i%2 == 0)
-						startPos[i] = e.getX() - mouseDiff[i];
-					else
-						startPos[i] = e.getY() - mouseDiff[i];
-				}
-				
 				if (Shape.LOCATION_MIDDLE != adjustDirection)
 					drawShape.adjust(e.getX(), e.getY(), adjustDirection);
 				else {
+					startPos = new int[mouseDiff.length];
+					for (int i=0; i<startPos.length; i++) {
+						if (i%2 == 0)
+							startPos[i] = e.getX() - mouseDiff[i];
+						else
+							startPos[i] = e.getY() - mouseDiff[i];
+					}
+					
 					// reset shape location according to mouse being dragged
 					drawShape.setLoc(startPos);
 				}
