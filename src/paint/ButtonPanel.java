@@ -20,10 +20,11 @@ import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
+import paint.DrawPanel.ShapeDrawnListener;
 import shapes.*;
 
 @SuppressWarnings("serial")
-public class ButtonPanel extends JPanel implements ActionListener {
+public class ButtonPanel extends JPanel implements ActionListener, ShapeDrawnListener {
 	
 	private Color selectedColor;
 	
@@ -36,7 +37,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
 	private JToggleButton triangleButton;
 
 	private ArrayList<DrawListener> drawListeners = new ArrayList<DrawListener>(); 
-	public ButtonGroup shapeButtons = new ButtonGroup();
+	private ButtonGroup shapeButtons = new ButtonGroup();
 	
 	public ButtonPanel() {
 		setDoubleBuffered(true);
@@ -173,5 +174,10 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		} catch (AWTException ex) {
 			// do nothing
 		}
+	}
+
+	@Override
+	public void shapeDrawn() {
+		shapeButtons.clearSelection();
 	}
 }

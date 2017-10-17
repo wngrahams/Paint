@@ -15,6 +15,7 @@ public class Drawer extends JFrame {
 		this.setBackground(Color.WHITE);
 		
 		buttonPanel.addDrawListener(drawingPanel);
+		drawingPanel.addShapeDrawnListener(buttonPanel);
 		
 		setVisible(true);
 	}
