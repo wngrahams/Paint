@@ -138,6 +138,14 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		ovalButton.setToolTipText("Press and hold on panel, then drag.");
 		rectangleButton.setToolTipText("Press and hold on panel, then drag.");
 		triangleButton.setToolTipText("Click on panel 3 times, once for each corner.");
+		
+		areaButton.setFocusable(false);
+		colorButton.setFocusable(false);
+		lineButton.setFocusable(false);
+		ovalButton.setFocusable(false);
+		perimeterButton.setFocusable(false);
+		rectangleButton.setFocusable(false);
+		triangleButton.setFocusable(false);
 
 		add(rectangleButton);
 		add(ovalButton);
