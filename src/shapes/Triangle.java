@@ -24,26 +24,23 @@ public class Triangle extends Shape {
 	
 	@Override
 	public void adjust(int newX, int newY, int direction) {
-		if(LOCATION_NW == direction)
-		{
-			//System.out.println("inside adjust shaep loc -> near 1st point");
+		if (LOCATION_N == direction) {
 			location[0] = newX;
 			location[1] = newY;
+			
+			// call setLoc to ensure dimensions are also updated
 			setLoc(location);
 		}
-		if(LOCATION_SE == direction)
-		{
+		else if (LOCATION_E == direction) {
 			location[2] = newX;
 			location[3] = newY;
 			setLoc(location);
 		}
-		if(LOCATION_SW == direction)
-		{
+		else if (LOCATION_W == direction) {
 			location[4] = newX;
 			location[5] = newY;
 			setLoc(location);
 		}
-		
 	}
 	
 	private void calculateDimFromLoc() {
@@ -85,32 +82,37 @@ public class Triangle extends Shape {
 		long dot11 = dot(v1, v1);
 		long dot12 = dot(v1, v2);
 		
-		double denominator = (1.0) / (dot00 * dot11 - dot01 * dot01);
+		double denominator = 1.0 / (dot00 * dot11 - dot01 * dot01);
 		double lambda1 = (dot11 * dot02 - dot01 * dot12) * denominator;
 		double lambda2 = (dot00 * dot12 - dot01 * dot02) * denominator;
 		
 		if ((lambda1 >= 0) && (lambda2 >= 0) && (lambda1 + lambda2 < 1))
 		{
-			double distance1 = calculateDist(x, y, location[0], location[1]);
-			double distance2 = calculateDist(x, y, location[2], location[3]);
-			double distance3 = calculateDist(x, y, location[4], location[5]);
-			//double epsilon =  
+			// (x,y) is in the triangle, now determine what part
+			double distFromPt1 = calculateDist(x, y, location[0], location[1]);
+			double distFromPt2 = calculateDist(x, y, location[2], location[3]);
+			double distFromPt3 = calculateDist(x, y, location[4], location[5]);
 			
-			if(distance1 < distance2 &&  distance1 < distance3)
-				return LOCATION_NW;
-			else if(distance2 < distance1 &&  distance2 < distance3)
-				return LOCATION_SE;
-			else if(distance3 < distance1 &&  distance3 < distance2)
-				return LOCATION_SW;
+			double[] centroid = new double[2];
+			centroid[0] = (location[0] + location[2] + location[4]) / 3.0;
+			centroid[1] = (location[1] + location[3] + location[5]) / 3.0;		
 			
-			/*
-			else if(distance1 - epsilon < distance2 < distance3 + epsilon)
-			{
-				
-			}*/
+			double epsilon = (dimensions[0] + dimensions[1] + dimensions[2]) / 24.0;
+			
+			if (x > (centroid[0] - epsilon) && x < (centroid[0] + epsilon) &&
+					y > (centroid[1] - epsilon) && y < (centroid[1] + epsilon)) {
+					return LOCATION_MIDDLE;
+			}
+			else if (distFromPt1 <= distFromPt2 && distFromPt1 <= distFromPt3)
+				return LOCATION_N;
+			else if (distFromPt2 <= distFromPt1 && distFromPt2 <= distFromPt3)
+				return LOCATION_E;
+			else if (distFromPt3 <= distFromPt1 && distFromPt3 <= distFromPt2)
+				return LOCATION_W;
+			else
+				return LOCATION_MIDDLE;
 		}
 			
-		
 		return LOCATION_NOT_CONTAINED;
 	}
 	
