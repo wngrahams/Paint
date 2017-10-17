@@ -32,7 +32,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
 	private JButton perimeterButton;
 	private JButton rectangleButton;
 	private JButton triangleButton;
-	
+
 	private ArrayList<DrawListener> drawListeners = new ArrayList<DrawListener>(); 
 	
 	public ButtonPanel() {
@@ -125,7 +125,12 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		perimeterButton.addActionListener(this);
 		rectangleButton.addActionListener(this);
 		triangleButton.addActionListener(this);
-				
+
+		lineButton.setToolTipText("Press and hold on panel, then drag.");
+		ovalButton.setToolTipText("Press and hold on panel, then drag.");
+		rectangleButton.setToolTipText("Press and hold on panel, then drag.");
+		triangleButton.setToolTipText("Click on panel 3 times, once for each corner.");
+
 		add(rectangleButton);
 		add(ovalButton);
 		add(triangleButton);
