@@ -305,6 +305,8 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 		JOptionPane.showMessageDialog(this, perimeter, "Total Perimeter", JOptionPane.PLAIN_MESSAGE);
 	}
 
+	
+	// small interface to let ButtonPanel know when a shape is drawn
 	public interface ShapeDrawnListener {
 		void shapeDrawn();
 	}

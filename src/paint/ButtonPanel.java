@@ -176,6 +176,7 @@ public class ButtonPanel extends JPanel implements ActionListener, ShapeDrawnLis
 		}
 	}
 
+	// deselect all toggleButtons when a shape is drawn
 	@Override
 	public void shapeDrawn() {
 		shapeButtons.clearSelection();
