@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.JOptionPane;
@@ -19,17 +20,17 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 	private Shape drawShape;
 	private Shape shapeType;
 	private int adjustDirection = Shape.LOCATION_NOT_CONTAINED;
+	private ShapesList shapesList;
+	private int removalIndex = -1;
 
 	private int[] startPos;
 	private int[] dim;
 	private int[] mouseDiff;
 	
-	private ShapesList shapesList;
-	
 	private int triCounter = 0;
 	private int[] triPoints;
 	
-	private int removalIndex = -1;
+	private ArrayList<ShapeDrawnListener> shapeDrawnListeners = new ArrayList<ShapeDrawnListener>();
 	
 	public DrawPanel() {
 		setDoubleBuffered(true);
@@ -151,6 +152,9 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 				shapeType = null;
 				repaint();
 				triCounter = 0;
+				
+				for (ShapeDrawnListener sd : shapeDrawnListeners)
+					sd.shapeDrawn();
 			}
 		}
 	}
@@ -224,6 +228,9 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 			
 			shapeType = null;
 			drawShape = null;
+			
+			for (ShapeDrawnListener sd : shapeDrawnListeners)
+				sd.shapeDrawn();
 		}
 	}
 
@@ -298,4 +305,13 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 		JOptionPane.showMessageDialog(this, perimeter, "Total Perimeter", JOptionPane.PLAIN_MESSAGE);
 	}
 
+	
+	// small interface to let ButtonPanel know when a shape is drawn
+	public interface ShapeDrawnListener {
+		void shapeDrawn();
+	}
+	
+	public void addShapeDrawnListener(ShapeDrawnListener sd) {
+		shapeDrawnListeners.add(sd);
+	}
 }
