@@ -11,29 +11,33 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JPanel;
+import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
+import paint.DrawPanel.ShapeDrawnListener;
 import shapes.*;
 
 @SuppressWarnings("serial")
-public class ButtonPanel extends JPanel implements ActionListener {
+public class ButtonPanel extends JPanel implements ActionListener, ShapeDrawnListener {
 	
 	private Color selectedColor;
 	
 	private JButton areaButton;
 	private JButton colorButton;
-	private JButton lineButton;
-	private JButton ovalButton;
+	private JToggleButton lineButton;
+	private JToggleButton ovalButton;
 	private JButton perimeterButton;
-	private JButton rectangleButton;
-	private JButton triangleButton;
-	
+	private JToggleButton rectangleButton;
+	private JToggleButton triangleButton;
+
 	private ArrayList<DrawListener> drawListeners = new ArrayList<DrawListener>(); 
+	private ButtonGroup shapeButtons = new ButtonGroup();
 	
 	public ButtonPanel() {
 		setDoubleBuffered(true);
@@ -109,10 +113,15 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		areaButton = new JButton("Get Area");
 		perimeterButton = new JButton("Get Perimeter");
 		
-		lineButton = new JButton(new ImageIcon("res/line.png"));
-		ovalButton = new JButton(new ImageIcon("res/oval.png"));
-		rectangleButton = new JButton(new ImageIcon("res/rectangle.png"));
-		triangleButton = new JButton(new ImageIcon("res/triangle.png"));
+		lineButton = new JToggleButton(new ImageIcon("res/line.png"));
+		ovalButton = new JToggleButton(new ImageIcon("res/oval.png"));
+		rectangleButton = new JToggleButton(new ImageIcon("res/rectangle.png"));
+		triangleButton = new JToggleButton(new ImageIcon("res/triangle.png"));
+		
+		shapeButtons.add(lineButton);
+		shapeButtons.add(ovalButton);
+		shapeButtons.add(rectangleButton);
+		shapeButtons.add(triangleButton);
 				
 		colorButton = new JButton("Choose Color");
 		changeColorIcon(selectedColor);
@@ -125,7 +134,20 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		perimeterButton.addActionListener(this);
 		rectangleButton.addActionListener(this);
 		triangleButton.addActionListener(this);
-				
+
+		lineButton.setToolTipText("Press and hold on panel, then drag.");
+		ovalButton.setToolTipText("Press and hold on panel, then drag.");
+		rectangleButton.setToolTipText("Press and hold on panel, then drag.");
+		triangleButton.setToolTipText("Click on panel 3 times, once for each corner.");
+		
+		areaButton.setFocusable(false);
+		colorButton.setFocusable(false);
+		lineButton.setFocusable(false);
+		ovalButton.setFocusable(false);
+		perimeterButton.setFocusable(false);
+		rectangleButton.setFocusable(false);
+		triangleButton.setFocusable(false);
+
 		add(rectangleButton);
 		add(ovalButton);
 		add(triangleButton);
@@ -152,5 +174,11 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		} catch (AWTException ex) {
 			// do nothing
 		}
+	}
+
+	// deselect all toggleButtons when a shape is drawn
+	@Override
+	public void shapeDrawn() {
+		shapeButtons.clearSelection();
 	}
 }
