@@ -50,7 +50,6 @@ public class ButtonPanel extends JPanel implements ActionListener, ShapeDrawnLis
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		// TODO Use an interface for this?
 		if (e.getSource() == areaButton) {
 			for (DrawListener dl : drawListeners)
 				dl.calculateArea();

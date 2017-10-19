@@ -126,7 +126,7 @@ public class Rectangle extends Shape {
 		g.fillRect(drawStart[0], drawStart[1], drawDim[0], drawDim[1]);
 	}
 	
-	private void resetLocAndDim() {  // TODO: move this to Shape?
+	private void resetLocAndDim() {
 		for (int i=0; i<dimensions.length; i++) {
 			if (dimensions[i] < 0) {
 				location[i] = location[i] + dimensions[i];

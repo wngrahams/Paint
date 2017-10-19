@@ -25,9 +25,7 @@ public class Oval extends Shape {
 	
 	@Override
 	public void adjust(int newX, int newY, int direction) {
-		int[] oldLoc = Arrays.copyOf(location, location.length);
-		
-		// TODO: bug where dragging any direction except SE, E, and S slowly changes position 
+		int[] oldLoc = Arrays.copyOf(location, location.length); 
 		
 		if (LOCATION_SE == direction)
 			setDim(newX - location[0], newY - location[1]);

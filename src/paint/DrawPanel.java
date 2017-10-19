@@ -184,11 +184,7 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 					// remove shape, re-add it later
 					shapesList.remove(i);
 					removalIndex = i;
-					
-					System.out.print("Location: " + drawShape.getLoc()[0] + ", " + drawShape.getLoc()[1]);
-					System.out.print("\tDimensions: " + drawShape.getDim()[0] + ", " + drawShape.getDim()[1]);
-					System.out.println("\tMouse: (" + e.getX() + ", " + e.getY() + ")");
-					
+
 					break;
 				}
 				else 
@@ -211,10 +207,6 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 		// if we're adjusting shapes
 		if (null == shapeType) {
 			if (null != drawShape) {	
-				
-//				System.out.println("Location: " + drawShape.getLoc()[0] + ", " + drawShape.getLoc()[1]);
-//				System.out.println("Dimensions: " + drawShape.getDim()[0] + ", " + drawShape.getDim()[1]);
-				
 				// add the adjusted shape back into the shapesList
 				shapesList.add(removalIndex, drawShape);
 				drawShape = null;
@@ -236,7 +228,6 @@ public class DrawPanel extends JPanel implements DrawListener, MouseListener, Mo
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO: make it so that cursor goes back to crosshair after color is changed
 		determineCursor(0, 0);
 	}
 

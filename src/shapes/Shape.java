@@ -26,9 +26,7 @@ public abstract class Shape {
 	public int[] getLoc() {
 		return location;
 	}
-	public int[] getDim() {  // TODO remove this
-		return dimensions;
-	}
+
 	public abstract void setDim(int[] newDim);
 	public abstract void setLoc(int[] newLoc);
 	public void setColor(Color newColor) { shapeColor = newColor; }
