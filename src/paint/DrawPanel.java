@@ -13,6 +13,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import shapes.*;
 
+/*
+ * @author Graham Stubbs (wgs11) and Cooper Logerfo (cml264)
+ */
 @SuppressWarnings("serial")
 public class DrawPanel extends JPanel implements DrawListener, MouseListener, MouseMotionListener {
 

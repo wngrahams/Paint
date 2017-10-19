@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import shapes.Shape;
 
+/*
+ * @author Graham Stubbs (wgs11) and Cooper Logerfo (cml264)
+ */
 public class ShapesList {
 
 	private ArrayList<Shape> listOfShapes;

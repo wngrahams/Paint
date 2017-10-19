@@ -2,6 +2,9 @@ package shapes;
 
 import java.awt.Graphics;
 
+/*
+ * @author Graham Stubbs (wgs11) and Cooper Logerfo (cml264)
+ */
 public class Triangle extends Shape {
 	
 	public Triangle() {

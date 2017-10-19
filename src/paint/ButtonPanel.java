@@ -23,6 +23,9 @@ import javax.swing.border.LineBorder;
 import paint.DrawPanel.ShapeDrawnListener;
 import shapes.*;
 
+/*
+ * @author Graham Stubbs (wgs11) and Cooper Logerfo (cml264)
+ */
 @SuppressWarnings("serial")
 public class ButtonPanel extends JPanel implements ActionListener, ShapeDrawnListener {
 	

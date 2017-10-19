@@ -3,6 +3,9 @@ package shapes;
 import java.awt.Graphics;
 import java.util.Arrays;
 
+/*
+ * @author Graham Stubbs (wgs11) and Cooper Logerfo (cml264)
+ */
 public class Rectangle extends Shape {
 	
 	public Rectangle() {

@@ -4,6 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 
+/* 
+ * The general ideas and methods for this class and its subclasses were taken from homework 2
+ * @author Graham Stubbs (wgs11) and Cooper Logerfo (cml264)
+ */
 public abstract class Shape {
 	
 	protected int[] dimensions;

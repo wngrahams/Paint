@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JFrame;
 
+/*
+ * @author Graham Stubbs (wgs11) and Cooper Logerfo (cml264)
+ */
 @SuppressWarnings("serial")
 public class Drawer extends JFrame {
 	
