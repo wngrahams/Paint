@@ -113,10 +113,11 @@ public class ButtonPanel extends JPanel implements ActionListener, ShapeDrawnLis
 		areaButton = new JButton("Get Area");
 		perimeterButton = new JButton("Get Perimeter");
 		
-		lineButton = new JToggleButton(new ImageIcon("res/line.png"));
-		ovalButton = new JToggleButton(new ImageIcon("res/oval.png"));
-		rectangleButton = new JToggleButton(new ImageIcon("res/rectangle.png"));
-		triangleButton = new JToggleButton(new ImageIcon("res/triangle.png"));
+		// get absolute path of images
+		lineButton = new JToggleButton(new ImageIcon(this.getClass().getResource("/line.png")));
+		ovalButton = new JToggleButton(new ImageIcon(this.getClass().getResource("/oval.png")));
+		rectangleButton = new JToggleButton(new ImageIcon(this.getClass().getResource("/rectangle.png")));
+		triangleButton = new JToggleButton(new ImageIcon(this.getClass().getResource("/triangle.png")));
 		
 		shapeButtons.add(lineButton);
 		shapeButtons.add(ovalButton);
